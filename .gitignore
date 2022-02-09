@@ -1,0 +1,11 @@
+.Trashes
+.vscode
+*.pyc
+venv
+winvenv
+__pycache__/
+.DS_Store
+
+build
+dist
+htmlx.egg-info
