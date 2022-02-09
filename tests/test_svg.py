@@ -6,7 +6,6 @@
 
 import unittest
 
-from htmlx import htmlx
 from htmlx.svg import *
 
 # import requests

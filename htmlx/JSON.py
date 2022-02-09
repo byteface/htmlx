@@ -7,7 +7,7 @@ import csv
 import json
 
 from htmlx.decorators import as_json
-from htmlx.html import table, td, th, tr
+from htmlx import table, td, th, tr
 
 return_json = as_json  # legacy. use the one in decorators package
 

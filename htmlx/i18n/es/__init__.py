@@ -7,7 +7,7 @@
     translated to Spanish using google translate.
     send a pull request if you have a better translation.
 """
-from htmlx.html import *
+from htmlx.tags import *
 
 cuerpo = body
 cabeza = head

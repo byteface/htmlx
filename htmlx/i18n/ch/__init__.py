@@ -7,7 +7,7 @@
     first translated to Chinese using google translate.
     send a pull request if you have a better translation.
 """
-from htmlx.html import *
+from htmlx.tags import *
 
 Shēntǐ = 身体 = body
 tóu = 头 = head

@@ -7,7 +7,7 @@
     first translated to Zulu using google translate.
     feel free to send a pull request if you think it should be different
 """
-from htmlx.html import *
+from htmlx.tags import *
 
 umzimba = body
 ikhanda = head

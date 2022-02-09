@@ -6,8 +6,7 @@
 
 import unittest
 
-from htmlx.dom import *
-from htmlx.html import *
+from htmlx import *
 from htmlx.style import *
 
 # import requests

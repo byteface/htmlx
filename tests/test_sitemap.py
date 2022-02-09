@@ -6,7 +6,7 @@
 import unittest
 from datetime import datetime
 
-from htmlx import htmlx
+
 from htmlx.decorators import silence
 from htmlx.xml.sitemap import *
 

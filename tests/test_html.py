@@ -7,9 +7,8 @@
 
 import unittest
 
-from htmlx import htmlx
+from htmlx import *
 from htmlx.decorators import silence
-from htmlx.html import *
 
 # import requests
 # from mock import patch
@@ -39,10 +38,10 @@ class TestCase(unittest.TestCase):
             '''<custom_el id="test"><div>some content</div></custom_el>'''
 
     # @silence
-    def test_htmlx_parse(self):
-        page = htmlx.parse("<html><body>'some content'</body></html>")  # TODO - single comma
-        page = htmlx.parse("<html><body></body></html>")
-        print(page)
+    # def test_htmlx_parse(self):
+    #     page = htmlx.parse("<html><body>'some content'</body></html>")  # TODO - single comma
+    #     page = htmlx.parse("<html><body></body></html>")
+    #     print(page)
 
     @silence
     def test_htmlx_get(self):

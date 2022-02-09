@@ -7,7 +7,7 @@
     translated to Arabic using google translate.
     send a pull request if you have a better translation.
 """
-from htmlx.html import *
+from htmlx.tags import *
 
 aljism = الجسم = body
 alraas = الرأس = head

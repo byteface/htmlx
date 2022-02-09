@@ -9,8 +9,7 @@
 
 """
 
-# from htmlx.html import tag
-from htmlx.dom import Element
+from htmlx import Element
 
 svg_tags = [
     "svg",

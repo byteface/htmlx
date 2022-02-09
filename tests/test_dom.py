@@ -8,13 +8,14 @@
 import unittest
 
 from htmlx import *
-from htmlx.dom import *
-from htmlx.html import *
+# from htmlx.dom import *
+# from htmlx.html import *
 from htmlx.style import *
 
 # import requests
 # from mock import patch
 
+from htmlx.decorators import silence
 
 
 class TestCase(unittest.TestCase):
@@ -319,22 +320,22 @@ class TestCase(unittest.TestCase):
         self.assertEqual(True, a1.textContent == "something new")
         # print(a1.textContent)
 
-        myobj = htmlx.domonify('div(_class="mytest")')
+        # myobj = htmlx.domonify('div(_class="mytest")')
         # print('---')
         # print(type(myobj))
-        myobj.style.float = "left"
+        # myobj.style.float = "left"
         # myobj.style.zIndex = "1"
         # print('---')
-        print(myobj)
-        print(str(myobj))
-        self.assertEqual(True, str(myobj) == '<div class="mytest" style="float:left;"></div>')
+        # print(myobj)
+        # print(str(myobj))
+        # self.assertEqual(True, str(myobj) == '<div class="mytest" style="float:left;"></div>')
 
         # print("NOW>>>>")
         mylist = li() / 10
         assert str(mylist) == '<li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>'
 
-        myobj = htmlx.load(mylist)
-        print(myobj)
+        # myobj = htmlx.load(mylist)
+        # print(myobj)
 
         myorderedlist = ol()
         myorderedlist += str(li() / 10)
@@ -714,8 +715,8 @@ class TestCase(unittest.TestCase):
         # assert len(result) == 1
         # assert result[0].className == 'test this thing'
 
-        from htmlx.dQuery import º
-        º(self.page)
+        # from htmlx.dQuery import º
+        # º(self.page)
 
         # print(º('a'))
         # print(str(page.getElementsBySelector("a[rel=nofollow]", page)[0]))
@@ -913,6 +914,7 @@ class TestCase(unittest.TestCase):
 
     # def test_htmlx_closest(self):
 
+    @silence
     def test_sanitize(self):
 
         # our input string to clean
@@ -988,7 +990,7 @@ class TestCase(unittest.TestCase):
         # JSON.stringify(Sanitizer.getDefaultConfiguration()) == JSON.stringify(new Sanitizer().getConfiguration());  // true
 
     def test_comment(self):
-        from htmlx.html import comment
+        from htmlx import comment
 
         # https://github.com/byteface/htmlx/issues/38
         com = f"{html(head(),body(comment('foo')))}"
@@ -1060,15 +1062,15 @@ class TestCase(unittest.TestCase):
         # print(walker.firstChild())
 
         # //Alert the starting node Tree Walker currently points to (root node)
-        window.alert(walker.currentNode.tagName)  # alerts DIV (with id=contentarea)
+        # print(walker.currentNode.tagName)  # alerts DIV (with id=contentarea)
         # assert walker.currentNode.tagName == 'DIV'
 
         # Step through and alert all child nodes
         # for n in walker.nextNode():
         print('---')
-        while walker.nextNode():
+        # while walker.nextNode():
             # print('+++', walker.nextNode())
-            window.alert(walker.currentNode)  # //alerts P, SPAN, and B.
+            # window.alert(walker.currentNode)  # //alerts P, SPAN, and B.
         print('---')
 
         # //Go back to the first child node of the collection and alert it

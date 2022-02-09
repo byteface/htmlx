@@ -13,3 +13,7 @@ print(html(body(h1('Hello, World!'))))
 ```bash
 python3 -m pip install htmlx
 ```
+
+### run tests
+
+See the Makefile

@@ -14,7 +14,7 @@
         )
     )
 """
-from htmlx.html import *
+from htmlx.tags import *
 
 # tags
 mwili = body

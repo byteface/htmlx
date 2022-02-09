@@ -7,7 +7,7 @@
     first translated to Danish using google translate.
     send a pull request if you have a better translation.
 """
-from htmlx.html import *
+from htmlx.tags import *
 
 krop = body
 hovedet = head

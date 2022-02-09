@@ -9,7 +9,7 @@ import unittest
 
 import htmlx.JSON as JSON  # do this to use same way as previous versions of htmlx
 from htmlx.decorators import as_json
-from htmlx.html import *
+from htmlx import *
 
 # import requests
 # from mock import patch
