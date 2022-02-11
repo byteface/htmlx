@@ -99,24 +99,40 @@ class Node(EventTarget):
         self._update_parents()
 
         # attempt to set init namespaceURI based on the tag name
-        try:
-            n = self.rootNode
-            nm = n.tagName
-            # print(n)
-            if nm == "html":
-                self.namespaceURI = "http://www.w3.org/1999/xhtml"
-            elif nm == "svg":
-                self.namespaceURI = "http://www.w3.org/2000/svg"
-            elif nm == "xhtml":
-                self.namespaceURI = "http://www.w3.org/1999/xhtml"
-            elif nm == "xml":
-                self.namespaceURI = "http://www.w3.org/XML/1998/namespace"
-            elif nm == "xlink":
-                self.namespaceURI = "http://www.w3.org/1999/xlink"
-            elif nm == "math":
-                self.namespaceURI = "http://www.w3.org/1998/Math/MathML"
-        except Exception as e:
-            pass
+        # try:
+        #     n = self.rootNode
+        #     nm = n.tagName
+        #     # print(n)
+        #     if nm == "html":
+        #         self.namespaceURI = "http://www.w3.org/1999/xhtml"
+        #     elif nm == "svg":
+        #         self.namespaceURI = "http://www.w3.org/2000/svg"
+        #     elif nm == "xhtml":
+        #         self.namespaceURI = "http://www.w3.org/1999/xhtml"
+        #     elif nm == "xml":
+        #         self.namespaceURI = "http://www.w3.org/XML/1998/namespace"
+        #     elif nm == "xlink":
+        #         self.namespaceURI = "http://www.w3.org/1999/xlink"
+        #     elif nm == "math":
+        #         self.namespaceURI = "http://www.w3.org/1998/Math/MathML"
+        # except Exception as e:
+        #     pass
+
+        # refactor the above to be nicer.
+        # set the namespaceURI based on the tag name
+
+        if self.name == "html":
+            self.namespaceURI = "http://www.w3.org/1999/xhtml"
+        elif self.name == "svg":
+            self.namespaceURI = "http://www.w3.org/2000/svg"
+        elif self.name == "xhtml":
+            self.namespaceURI = "http://www.w3.org/1999/xhtml"
+        elif self.name == "xml":
+            self.namespaceURI = "http://www.w3.org/XML/1998/namespace"
+        elif self.name == "xlink":
+            self.namespaceURI = "http://www.w3.org/1999/xlink"
+        elif self.name == "math":
+            self.namespaceURI = "http://www.w3.org/1998/Math/MathML"
 
         # this is for using 'with'
         if Node.__context is not None:
@@ -693,18 +709,15 @@ class Node(EventTarget):
         else:
             return Node.DOCUMENT_POSITION_FOLLOWING
 
-    def contains(self, node):
+    def contains(self, node: "Node") -> bool:
         """Check whether a node is a descendant of a given node"""
-        # this will go crunch on big stuff... need to consider best way
+        # return self.compareDocumentPosition(node) & Node.DOCUMENT_POSITION_CONTAINED_BY
         for each in self.args:
             if each == node:
                 return True
-            try:
+            elif isinstance(each, Node):
                 if each.contains(node):
                     return True
-            except Exception:
-                pass  # TODO - dont iterate strings
-
         return False
 
     @property
