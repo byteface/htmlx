@@ -3807,9 +3807,6 @@ class Document(Element):
         """Returns a collection of all <a> and <area> elements in the document that have a href attribute"""
         return self.querySelectorAll("a")
 
-    # @property
-    # def nodeType(self):
-    #     return Node.DOCUMENT_NODE
     nodeType: int = Node.DOCUMENT_NODE
 
     def normalizeDocument(self):  # TODO - test
@@ -4033,6 +4030,7 @@ location = Location
 
 class DocumentFragment(Node):
     def __init__(self, *args) -> None:
+        super().__init__(args, None)
         self.args: list = args
 
     querySelector = Document.querySelector
@@ -4045,13 +4043,15 @@ class DocumentFragment(Node):
     def replaceChildren(self, newChildren) -> None:
         """Replaces the childNodes of the DocumentFragment object."""
         self.content.replaceChild(newChildren)
-
     replace_children = replaceChildren
 
     # @property
     # def nodeType(self) -> int:
     #     return Node.DOCUMENT_FRAGMENT_NODE
     nodeType: int = Node.DOCUMENT_FRAGMENT_NODE
+
+    def __format__(self, format_spec):
+        return self.__str__()
 
     def __str__(self) -> str:
         return "".join([str(a) for a in self.args])
