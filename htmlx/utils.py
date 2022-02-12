@@ -9,8 +9,6 @@ from collections import Counter
 from itertools import chain, islice
 from re import sub
 
-from htmlx.decorators import deprecated
-
 
 class Utils(object):
     """Utils"""
