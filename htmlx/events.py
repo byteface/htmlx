@@ -18,6 +18,7 @@ class EventTarget(object):
 
     def hasEventListener(self, _type: str) -> bool:
         return _type in self.listeners
+
     has_event_listener = hasEventListener
 
     # TODO - event: str, function, useCapture: bool
@@ -26,6 +27,7 @@ class EventTarget(object):
         if _type not in self.listeners:
             self.listeners[_type] = []
         self.listeners[_type].append(callback)
+
     add_event_listener = addEventListener
 
     def removeEventListener(self, _type: str, callback):
@@ -38,6 +40,7 @@ class EventTarget(object):
             if thing == callback:
                 stack.remove(thing)
                 return
+
     remove_event_listener = removeEventListener
 
     def dispatchEvent(self, event):
@@ -59,6 +62,7 @@ class EventTarget(object):
                 thing()  # try calling without params, user may not create param
 
         return not event.defaultPrevented
+
     dispatch_event = dispatchEvent
 
     # async def dispatchEventAsync(self, event):

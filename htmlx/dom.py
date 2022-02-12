@@ -618,12 +618,14 @@ class Node(EventTarget):
             self.args = self.args + (aChild,)
             # return aChild  # causes max recursion when called chained? then don't chain?
             return aChild
+
     append_child = appendChild
 
     @property
     def childElementCount(self) -> int:
         """Returns the number of child elements an element has"""
         return len(self.args)
+
     child_element_count = childElementCount
 
     @property
@@ -631,6 +633,7 @@ class Node(EventTarget):
         """Returns a live NodeList containing all the children of this node"""
         # return list(self.args)
         return NodeList(self.args)
+
     child_nodes = childNodes
 
     @property
@@ -714,6 +717,7 @@ class Node(EventTarget):
             return Node.DOCUMENT_POSITION_PRECEDING
         else:
             return Node.DOCUMENT_POSITION_FOLLOWING
+
     compare_document_position = compareDocumentPosition
 
     def contains(self, node: "Node") -> bool:
@@ -734,11 +738,13 @@ class Node(EventTarget):
             return self.args[0]  # TODO - check if this means includes content
         except Exception:
             return None
+
     first_child = firstChild
 
     def hasChildNodes(self) -> bool:
         """Returns true if an element has any child nodes, otherwise false"""
         return len(self.args) > 0
+
     has_child_nodes = hasChildNodes
 
     @property
@@ -748,6 +754,7 @@ class Node(EventTarget):
             return self.args[len(self.args) - 1]
         except Exception:
             return None
+
     last_child = lastChild
 
     @property
@@ -756,8 +763,9 @@ class Node(EventTarget):
             return self.tagName
         except Exception:
             return None
+
     local_name = localName
-    
+
     @property
     def nodeName(self):
         """Returns the name of a node"""
@@ -789,6 +797,7 @@ class Node(EventTarget):
                 return self.tagName
             except Exception:
                 return None
+
     node_name = nodeName
 
     # @property
@@ -819,6 +828,7 @@ class Node(EventTarget):
         """Sets or returns the value of a node"""
         self.args = (content,)
         return content
+
     node_value = nodeValue
 
     @property
@@ -830,6 +840,7 @@ class Node(EventTarget):
     def ownerDocument(self, newOwner):  #: Element):
         # self.rootNode = newOwner # NOTE - you can't set rootNode it's property that calcs it
         pass
+
     owner_document = ownerDocument
 
     @property
@@ -849,6 +860,7 @@ class Node(EventTarget):
             node = nxt
             nxt = nxt.parentNode
         return node
+
     root_node = rootNode
 
     def insertBefore(self, new_node, reference_node=None):
@@ -869,6 +881,7 @@ class Node(EventTarget):
                 + self.args[self.args.index(reference_node) :]
             )
         return new_node
+
     insert_before = insertBefore
 
     def removeChild(self, node):
@@ -888,8 +901,9 @@ class Node(EventTarget):
             r = each.removeChild(node)
             if r:
                 return r
-    
+
         return None
+
     remove_child = removeChild
 
     def replaceChild(self, newChild, oldChild):
@@ -922,6 +936,7 @@ class Node(EventTarget):
         #         return r
 
         # return None
+
     replace_child = replaceChild
 
     def cloneNode(self, deep: bool = True):
@@ -932,16 +947,19 @@ class Node(EventTarget):
             return copy.deepcopy(self)
         else:
             return copy.copy(self)  # shallow copy
+
     clone_node = cloneNode
 
     def isSameNode(self, node):
         """Checks if two elements are the same node"""
         return self == node
+
     is_same_node = isSameNode
 
     def isEqualNode(self, node):
         """Checks if two elements are equal"""
         return str(self) == str(node)
+
     is_equal_node = isEqualNode
 
     def getRootNode(self, options=None):
@@ -949,6 +967,7 @@ class Node(EventTarget):
         # if options['composed'] = True:
         # TODO - need to implement composed
         return self.rootNode
+
     get_root_node = getRootNode
 
     def isDefaultNamespace(self, ns):
@@ -957,6 +976,7 @@ class Node(EventTarget):
             return True
         else:
             return False
+
     is_default_namespace = isDefaultNamespace
 
     def lookupNamespaceURI(self, ns: str):
@@ -971,6 +991,7 @@ class Node(EventTarget):
             return namespaces[ns]
         else:
             return None
+
     lookup_namespace_uri = lookupNamespaceURI
 
     def lookupPrefix(self, ns):
@@ -979,6 +1000,7 @@ class Node(EventTarget):
             return self.prefix
         else:
             return None
+
     lookup_prefix = lookupPrefix
 
     @property
@@ -993,6 +1015,7 @@ class Node(EventTarget):
                         return None
                     else:
                         return self.parentNode.args[count + 1]
+
     next_sibling = nextSibling
 
     def normalize(self):
@@ -1011,6 +1034,7 @@ class Node(EventTarget):
                         return None
                     else:
                         return self.parentNode.args[count - 1]
+
     previous_sibling = previousSibling
 
     @property
@@ -1037,6 +1061,7 @@ class Node(EventTarget):
         """Sets the text content of a node and its descendants"""
         self.args = (content,)
         return content
+
     text_content = textContent
 
     # def isSupported(self): return False #  🗑
@@ -1086,6 +1111,70 @@ class Node(EventTarget):
     def tail(self):
         """Returns the text content of the current node"""
         return self.textContent
+
+    # def __dir__(self):
+    #     return []
+
+    def __dir__(self) -> Iterable[str]:
+        return [
+            # "ATTRIBUTE_NODE",
+            # "CDATA_SECTION_NODE",
+            # "COMMENT_NODE",
+            # "DOCUMENT_FRAGMENT_NODE",
+            # "DOCUMENT_NODE",
+            # "DOCUMENT_POSITION_CONTAINED_BY",
+            # "DOCUMENT_POSITION_CONTAINS",
+            # "DOCUMENT_POSITION_DISCONNECTED",
+            # "DOCUMENT_POSITION_FOLLOWING",
+            # "DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC",
+            # "DOCUMENT_POSITION_PRECEDING",
+            # "DOCUMENT_TYPE_NODE",
+            # "ELEMENT_NODE",
+            # "ENTITY_NODE",
+            # "ENTITY_REFERENCE_NODE",
+            # "NOTATION_NODE",
+            # "PROCESSING_INSTRUCTION_NODE",
+            # "TEXT_NODE",
+            "addEventListener",
+            "appendChild",
+            "attrib",
+            "childElementCount",
+            "childNodes",
+            "children",
+            "cloneNode",
+            "compareDocumentPosition",
+            "contains",
+            "content",
+            "dispatchEvent",
+            "firstChild",
+            "getRootNode",
+            "hasChildNodes",
+            "hasEventListener",
+            "insertBefore",
+            "isDefaultNamespace",
+            "isEqualNode",
+            "isSameNode",
+            "iter",
+            "lastChild",
+            "localName",
+            "lookupNamespaceURI",
+            "lookupPrefix",
+            "nextSibling",
+            "nodeName",
+            "nodeType",
+            "nodeValue",
+            "normalize",
+            "ownerDocument",
+            "previousSibling",
+            "removeChild",
+            "removeEventListener",
+            "replaceChild",
+            "rootNode",
+            "tag",
+            "tail",
+            "text",
+            "textContent",
+        ]
 
 
 class ParentNode(object):
@@ -2124,6 +2213,7 @@ class Element(Node):
     def attachShadow(self, obj):
         self.shadowRoot = ShadowRoot(self, obj["mode"])
         return self.shadowRoot
+
     attach_shadow = attachShadow
 
     # def accessKey( key: str ): -> None
@@ -2152,6 +2242,7 @@ class Element(Node):
             # TODO - will need the parser to work for this to work properly. for now shove all on first content node
             self.args = (value,)
         return self.content
+
     inner_html = innerHTML
 
     @property
@@ -2168,6 +2259,7 @@ class Element(Node):
             # TODO - will need the parser to work for this to work properly
             pass
         return self
+
     outer_html = outerHTML
 
     def html(self, *args):
@@ -2192,6 +2284,7 @@ class Element(Node):
         """Sets or returns the value of the classList attribute of an element"""
         self.setAttribute("class", newname)
         # raise NotImplementedError
+
     class_list = classList
 
     @property
@@ -2203,6 +2296,7 @@ class Element(Node):
     def className(self, newname: str):
         """Sets or returns the value of the className attribute of an element"""
         self.setAttribute("class", newname)
+
     class_name = className
 
     def click(self):
@@ -2216,24 +2310,28 @@ class Element(Node):
     def clientHeight(self):
         """Returns the height of an element, including padding"""
         return self.style.height + self.style.paddingTop + self.style.paddingBottom
+
     client_height = clientHeight
 
     @property
     def clientLeft(self):
         """Returns the width of the left border of an element"""
         return self.style.left
+
     client_left = clientLeft
 
     @property
     def clientTop(self):
         """Returns the width of the top border of an element"""
         return self.style.top
+
     client_top = clientTop
 
     @property
     def clientWidth(self):
         """Returns the width of an element, including padding"""
         return self.style.width + self.style.paddingLeft + self.style.paddingRight
+
     client_width = clientWidth
 
     @property
@@ -2245,6 +2343,7 @@ class Element(Node):
     @contentEditable.setter
     def contentEditable(self, value: bool) -> None:
         self.setAttribute("contenteditable", value)
+
     content_editable = contentEditable
 
     @property
@@ -2276,6 +2375,7 @@ class Element(Node):
     def exitFullscreen(self):
         """Cancels an element in fullscreen mode"""
         raise NotImplementedError
+
     exit_fullscreen = exitFullscreen
 
     def firstElementChild(self):
@@ -2284,6 +2384,7 @@ class Element(Node):
             return self.args[0]
         except Exception:
             return None
+
     first_element_child = firstElementChild
 
     def focus(self):
@@ -2295,6 +2396,7 @@ class Element(Node):
         a = Attr(attr.name.lstrip("_"), attr.value)
         self.setAttributeNode(a)
         return self
+
     set_attribute_node_ns = setAttributeNodeNS
 
     def getAttributeNodeNS(self, attr):  # TODO - test
@@ -2303,16 +2405,19 @@ class Element(Node):
         if a is None:
             return None
         return Attr(attr, a)
+
     get_attribute_node_ns = getAttributeNodeNS
 
     def setAttributeNS(self, namespaceURI, localName, value):
         """Sets an attribute in the given namespace"""
         self.setAttribute(localName, value)
+
     set_attribute_ns = setAttributeNS
 
     def getAttributeNS(self, namespaceURI, localName):
         """Returns the value of the specified attribute"""
         return self.getAttribute(localName)
+
     get_attribute_ns = getAttributeNS
 
     def removeAttributeNS(self, namespaceURI, localName):
@@ -2322,6 +2427,7 @@ class Element(Node):
         # else:
         #     raise AttributeError
         return self
+
     remove_attribute_ns = removeAttributeNS
 
     def getAttribute(self, attribute: str) -> str:
@@ -2334,6 +2440,7 @@ class Element(Node):
             # print('attribute does not exist', e)  # TODO - something about this
             # print(e)
             return None
+
     get_attribute = getAttribute
 
     def getAttributeNode(self, attribute: str) -> str:
@@ -2344,11 +2451,13 @@ class Element(Node):
             # print('failed to get attribute')
             # print(e)
             return ""
+
     get_attribute_node = getAttributeNode
 
     def getBoundingClientRect(self):
         """Returns the size of an element and its position relative to the viewport"""
         raise NotImplementedError
+
     get_bounding_client_rect = getBoundingClientRect
 
     def getElementsByClassName(self, className: str) -> "HTMLCollection":
@@ -2363,6 +2472,7 @@ class Element(Node):
         # TODO - this will have to change as this i live and qsa aint.
         # return self.querySelectorAll('.' + className)
         return HTMLCollection(self.querySelectorAll("." + className))
+
     get_elements_by_class_name = getElementsByClassName
 
     def getElementsByTagName(self, tagName: str) -> "HTMLCollection":
@@ -2382,6 +2492,7 @@ class Element(Node):
 
         self._iterate(self, anon)
         return elements
+
     get_elements_by_tag_name = getElementsByTagName
 
     def hasAttribute(self, attribute: str) -> bool:
@@ -2394,16 +2505,18 @@ class Element(Node):
             # print('failed to get attribute')
             # print(e)
             return False
+
     has_attribute = hasAttribute
-    
+
     def hasAttributes(self) -> bool:
         """Returns true if an element has any attributes, otherwise false"""
         if len(self.kwargs) > 0:
             return True
         else:
             return False
+
     has_attributes = hasAttributes
-    
+
     @property
     def id(self):
         """Sets or returns the value of the id attribute of an element"""
@@ -2418,6 +2531,7 @@ class Element(Node):
     def innerText(self, *args):
         self.args = args
         return "".join([each.__str__() for each in self.args])
+
     inner_text = innerText
 
     # Inserts an element adjacent to the current element
@@ -2434,6 +2548,7 @@ class Element(Node):
             self.insertAfter(element, self.firstElementChild())
         elif position == "BEFOREEND":
             self.insertBefore(element, self.lastElementChild())
+
     insert_adjacent_element = insertAdjacentElement
 
     def insertAdjacentHTML(self, position: str, html: str):
@@ -2447,6 +2562,7 @@ class Element(Node):
         # elif position == 'afterend':
         #     self.insertAdjacentElement('afterend', html)
         pass
+
     insert_adjacent_html = insertAdjacentHTML
 
     def insertAdjacentText(self, position: str, text: str):
@@ -2460,6 +2576,7 @@ class Element(Node):
         # elif position == 'afterend':
         #     self.insertAdjacentElement('afterend', text)
         pass
+
     insert_adjacent_text = insertAdjacentText
 
     def isContentEditable(self) -> bool:
@@ -2467,6 +2584,7 @@ class Element(Node):
         if self.getAttribute("contenteditable") == "true":
             return True
         return False
+
     is_content_editable = isContentEditable
 
     # def lang(self) -> str:
@@ -2483,6 +2601,7 @@ class Element(Node):
             return self.args[len(self.args) - 1]
         except Exception:
             return None
+
     last_element_child = lastElementChild
 
     def namespaceURI(self):
@@ -2497,8 +2616,9 @@ class Element(Node):
                 if el is self and count < len(self.parentNode.args) - 1:
                     return self.parentNode.args[count + 1]
         return None
+
     next_sibling = nextSibling
-    
+
     @property
     def nextElementSibling(self):
         """Returns the next element at the same node tree level"""
@@ -2508,6 +2628,7 @@ class Element(Node):
                     if type(self.parentNode.args[count + 1]) is not str:
                         return self.parentNode.args[count + 1]
         return None
+
     next_element_sibling = nextElementSibling
 
     @property
@@ -2520,6 +2641,7 @@ class Element(Node):
                     if type(self.parentNode.args[count - 1]) is not str:
                         return self.parentNode.args[count - 1]
         return None
+
     previous_element_sibling = previousElementSibling
 
     def normalize(self):
@@ -2547,32 +2669,38 @@ class Element(Node):
     def offsetHeight(self):
         """Returns the height of an element, including padding, border and scrollbar"""
         raise NotImplementedError
+
     offset_height = offsetHeight
-    
+
     def offsetWidth(self):
         """Returns the width of an element, including padding, border and scrollbar"""
         raise NotImplementedError
+
     offset_width = offsetWidth
 
     def offsetLeft(self):
         """Returns the horizontal offset position of an element"""
         raise NotImplementedError
+
     offset_left = offsetLeft
 
     def offsetParent(self):
         """Returns the offset container of an element"""
         raise NotImplementedError
+
     offset_parent = offsetParent
 
     def offsetTop(self):
         """Returns the vertical offset position of an element"""
         raise NotImplementedError
+
     offset_top = offsetTop
 
     @property
     def parentElement(self):
         """Returns the parent element node of an element"""
         return self.parentNode
+
     parent_element = parentElement
 
     def prepend(self, *args):
@@ -2593,6 +2721,7 @@ class Element(Node):
             return self.querySelectorAll(query)[0]
         except Exception as e:
             return None
+
     query_selector = querySelector
 
     def querySelectorAll(self, query: str):
@@ -2615,6 +2744,7 @@ class Element(Node):
 
         self._iterate(self, anon)
         return elements
+
     query_selector_all = querySelectorAll
 
     def remove(self):
@@ -2639,6 +2769,7 @@ class Element(Node):
         except Exception as e:
             print("failed to remove!", e)
             pass
+
     remove_attribute = removeAttribute
 
     def removeAttributeNode(self, attribute):  # untested
@@ -2648,11 +2779,13 @@ class Element(Node):
                 val = self.kwargs[each]
                 del self.kwargs[each]
                 return Attr(attribute, val)
+
     remove_attribute_node = removeAttributeNode
 
     def requestFullscreen(self):
         """Shows an element in fullscreen mode"""
         raise NotImplementedError
+
     request_fullscreen = requestFullscreen
 
     # def setPointerCapture(self):
@@ -2666,26 +2799,31 @@ class Element(Node):
     def scrollHeight(self):
         """Returns the entire height of an element, including padding"""
         raise NotImplementedError
+
     scroll_height = scrollHeight
 
     def scrollIntoView(self):
         """Scrolls the specified element into the visible area of the browser window"""
         raise NotImplementedError
+
     scroll_into_view = scrollIntoView
 
     def scrollLeft(self):
         """Sets or returns the number of pixels an element's content is scrolled horizontally"""
         raise NotImplementedError
+
     scroll_left = scrollLeft
 
     def scrollTop(self):
         """Sets or returns the number of pixels an element's content is scrolled vertically"""
         raise NotImplementedError
+
     scroll_top = scrollTop
 
     def scrollWidth(self):
         """Returns the entire width of an element, including padding"""
         raise NotImplementedError
+
     scroll_width = scrollWidth
 
     def setAttribute(self, attribute, value):
@@ -2697,6 +2835,7 @@ class Element(Node):
         except Exception as e:
             # print('failed to set attribute', e)
             return None
+
     set_attribute = setAttribute
 
     def setAttributeNode(self, attr):
@@ -2706,6 +2845,7 @@ class Element(Node):
             attr ([type]): [an Attr object]
         """
         self.setAttribute(attr.name, attr.value)
+
     set_attribute_node = setAttributeNode
 
     @property
@@ -2727,6 +2867,7 @@ class Element(Node):
     @property
     def tagName(self):
         return self.name
+
     tag_name = tagName
 
     @property
@@ -2746,7 +2887,66 @@ class Element(Node):
     def toString(self) -> str:
         """Converts an element to a string"""
         return str(self)
+
     to_string = toString
+
+    def __dir__(self) -> Iterable[str]:
+        return super().__dir__() + [
+            "childNodes",
+            "children",
+            "classList",
+            "className",
+            "clientHeight",
+            "clientLeft",
+            "clientTop",
+            "clientWidth",
+            "closest",
+            "compareDocumentPosition",
+            "contains",
+            "dataset",
+            "dir",
+            "dirName",
+            "firstElementChild",
+            "getAttribute",
+            "getAttributeNode",
+            "getAttributeNS",
+            "getAttributeNodeNS",
+            "getBoundingClientRect",
+            "getClientRects",
+            "getElementsByClassName",
+            "getElementsByTagName",
+            "getElementsByTagNameNS",
+            "hasAttribute",
+            "hasAttributeNS",
+            "hasAttributes",
+            "hasChildNodes",
+            "id",
+            "innerHTML",
+            "insertAdjacentElement",
+            "insertAdjacentHTML",
+            "insertAdjacentText",
+            "is",
+            "isDefaultNamespace",
+            "isEqualNode",
+            "isSameNode",
+            "isSupported",
+            "lang",
+            "lastElementChild",
+            "localName",
+            "namespaceURI",
+            "nextElementSibling",
+            "nextSibling",
+            "nodeName",
+            "nodeType",
+            "nodeValue",
+            "offsetHeight",
+            "offsetLeft",
+            "offsetParent",
+            "offsetTop",
+            "offsetWidth",
+            "onabort",
+        ]
+
 
 class DOMImplementation(object):
     def __init__(self):
@@ -2767,6 +2967,7 @@ class DOMImplementation(object):
         d.createElementNS(namespaceURI, qualifiedName)
         d.doctype = doctype
         return d
+
     create_document = createDocument
 
     def createDocumentType(
@@ -2783,6 +2984,7 @@ class DOMImplementation(object):
             [type]: [a DocumentType object]
         """
         return DocumentType(qualifiedName, publicId, systemId)
+
     create_document_type = createDocumentType
 
     def createHTMLDocument(self, title=None):
@@ -2793,11 +2995,13 @@ class DOMImplementation(object):
         # d.title = title
         # return d
         pass
+
     create_html_document = createHTMLDocument
-    
+
     def hasFeatures(self, featureList) -> bool:
         # return True
         pass
+
     has_features = hasFeatures
 
 
@@ -3243,24 +3447,28 @@ class Document(Element):
     def createAttribute(name):
         """Creates an attribute node"""
         return Attr(name)
+
     create_attribute = createAttribute
 
     @staticmethod
     def createComment(message):
         """Creates a Comment node with the specified text"""
         return Comment(message)
+
     create_comment = createComment
 
     @staticmethod
     def createDocumentFragment(*args):
         """Creates an empty DocumentFragment node if not content passed. I added args as optional to pass content"""
         return DocumentFragment(*args)
+
     create_document_fragment = createDocumentFragment
 
     @staticmethod
     def createExpression(xpath, nsResolver):
         """Creates an XPathExpression object for the given XPath string."""
         return XPathExpression(xpath, nsResolver)
+
     create_expression = createExpression
 
     # TODO - this whole functoin is backwards. i.e. html should be taking it from here
@@ -3268,7 +3476,9 @@ class Document(Element):
     def createElement(_type: str, *args, **kwargs):
         """Creates an Element node"""
         from htmlx import create_element
+
         return create_element(_type, *args, **kwargs)
+
     create_element = createElement
 
     @staticmethod
@@ -3277,6 +3487,7 @@ class Document(Element):
         el = type(qualifiedName, (Element,), {"name": qualifiedName})
         el.namespaceURI = namespaceURI
         return el()
+
     create_element_ns = createElementNS
 
     @staticmethod
@@ -3296,6 +3507,7 @@ class Document(Element):
         elif event_type is None:
             return Event()
         return Event()
+
     create_event = createEvent
 
     @staticmethod
@@ -3309,6 +3521,7 @@ class Document(Element):
             [type]: [a new Text node]
         """
         return Text(text)
+
     create_text_node = createTextNode
 
     @staticmethod
@@ -3327,24 +3540,28 @@ class Document(Element):
         """
         whatToShow = NodeFilter.SHOW_ALL if whatToShow == None else whatToShow
         return TreeWalker(root, whatToShow, filter, entityReferenceExpansion)
+
     create_tree_walker = createTreeWalker
 
     @staticmethod
     def createProcessingInstruction(target, data):
         """Creates a ProcessingInstruction node with the specified target and data"""
         return ProcessingInstruction(target, data)
+
     create_processing_instruction = createProcessingInstruction
 
     @staticmethod
     def createEntityReference(name):
         """Creates an EntityReference node with the specified name"""
         return EntityReference(name)
+
     create_entity_reference = createEntityReference
 
     @property
     def xmlversion(self):
         """Returns the version of XML used for the document"""
         return "1.0"
+
     xml_version = xmlversion
 
     # @property
@@ -3356,6 +3573,7 @@ class Document(Element):
     def createCDATASection(data):
         """Creates a CDATASection node with the specified data"""
         return CDATASection(data)
+
     create_cdata_section = createCDATASection
 
     # @staticmethod
@@ -3367,6 +3585,7 @@ class Document(Element):
     def createRange():
         """Creates a Range"""
         return Range()
+
     create_range = createRange
 
     @staticmethod
@@ -3374,26 +3593,27 @@ class Document(Element):
         """Creates a NodeIterator that can be used to traverse the document tree or subtree under root."""
         whatToShow = NodeFilter.SHOW_ALL if whatToShow == None else whatToShow
         return NodeIterator(root, whatToShow, filter)
+
     create_node_iterator = createNodeIterator
 
-        # @staticmethod
-        # def caretRangeFromPoint(x, y):
-        # """ Returns the Range object that is the caret selection at the given coordinates. """
-        # return Range()
-        # raise NotImplementedError
+    # @staticmethod
+    # def caretRangeFromPoint(x, y):
+    # """ Returns the Range object that is the caret selection at the given coordinates. """
+    # return Range()
+    # raise NotImplementedError
 
-        # @staticmethod
-        # def createNSResolver(nodeResolver):
-        #     """ Creates a NodeResolver """
-        #     return NodeResolver(nodeResolver)
+    # @staticmethod
+    # def createNSResolver(nodeResolver):
+    #     """ Creates a NodeResolver """
+    #     return NodeResolver(nodeResolver)
 
-        # def defaultView(self):
-        # """ Returns the window object associated with a document, or null if none is available. """
-        # return
+    # def defaultView(self):
+    # """ Returns the window object associated with a document, or null if none is available. """
+    # return
 
-        # def designMode(self):
-        # """ Controls whether the entire document should be editable or not."""
-        # return
+    # def designMode(self):
+    # """ Controls whether the entire document should be editable or not."""
+    # return
 
     @property
     def doctype(self):
@@ -3426,11 +3646,13 @@ class Document(Element):
     def elementFromPoint(self, x, y):
         """Returns the topmost element at the specified coordinates."""
         raise NotImplementedError
+
     element_from_point = elementFromPoint
 
     def elementsFromPoint(self, x, y):
         """Returns an array of all elements at the specified coordinates."""
         raise NotImplementedError
+
     elements_from_point = elementsFromPoint
 
     @property
@@ -3454,11 +3676,13 @@ class Document(Element):
     def fullscreenElement(self):
         """Returns the current element that is displayed in fullscreen mode"""
         return None
+
     fullscreen_element = fullscreenElement
 
     def fullscreenEnabled(self):
         """Returns a Boolean value indicating whether the document can be viewed in fullscreen mode"""
         return False
+
     fullscreen_enabled = fullscreenEnabled
 
     def getElementById(self, _id):
@@ -3486,6 +3710,7 @@ class Document(Element):
                 pass  # TODO - dont iterate strings
 
         return False
+
     get_element_by_id = getElementById
 
     def getElementsByName(self, name: str):
@@ -3508,6 +3733,7 @@ class Document(Element):
             except Exception as e:
                 pass
         return False
+
     get_elements_by_name = getElementsByName
 
     # def hasFocus():
@@ -3565,6 +3791,7 @@ class Document(Element):
             return Attr(node.name, node.value)
         else:
             raise Exception("Unsupported node type")
+
     import_node = importNode
 
     # def inputEncoding(self):
@@ -3596,6 +3823,7 @@ class Document(Element):
             else:
                 each.normalize()
         return
+
     normalize_document = normalizeDocument
 
     # def open(self):
@@ -3627,6 +3855,7 @@ class Document(Element):
             return node
         else:
             return False
+
     rename_node = renameNode
 
     # def requestStorageAccess(self, storage_access_callback):
@@ -3650,6 +3879,7 @@ class Document(Element):
     def pictureInPictureEnabled(self):
         """Returns whether Picture-in-Picture mode is enabled."""
         return False
+
     picture_in_picture_enabled = pictureInPictureEnabled
 
     @property
@@ -3664,6 +3894,7 @@ class Document(Element):
     def strictErrorChecking(self):
         """Returns a Boolean value indicating whether to stop on the first error"""
         return False
+
     strict_error_checking = strictErrorChecking
 
     @property
@@ -3695,6 +3926,7 @@ class Document(Element):
     def visibilityState(self):
         """Returns the visibility state of the document"""
         return "visible"
+
     visibility_state = visibilityState
 
     def write(self, html: str = ""):  # -> None: # TODO - untested
@@ -3713,11 +3945,47 @@ class Document(Element):
             html (str, optional): [the content to write to the document]
         """
         self.write(html + "\n")
+
     writeln = write
 
     # def __md__(self)
     # def __rst__(self)
     # def __json__(self)
+
+    def __dir__(self) -> Iterable[str]:
+        return super().__dir__() + [
+            "activeElement",
+            "anchors",
+            "applets",
+            "body",
+            "characterSet",
+            "charset",
+            "cookie",
+            "defaultCharset",
+            "designMode",
+            "dir",
+            "doctype",
+            "documentElement",
+            "documentURI",
+            "domain",
+            "embeds",
+            "forms",
+            "height",
+            "head",
+            "images",
+            "implementation",
+            "inputEncoding",
+            "lastModified",
+            "links",
+            "location",
+            "write",
+            "writeln",
+            "scripts",
+            "strictErrorChecking",
+            "title",
+            "visibilityState",
+        ]
+        # "fgColor",?
 
 
 class Location:
@@ -3777,6 +4045,7 @@ class DocumentFragment(Node):
     def replaceChildren(self, newChildren) -> None:
         """Replaces the childNodes of the DocumentFragment object."""
         self.content.replaceChild(newChildren)
+
     replace_children = replaceChildren
 
     # @property
@@ -3939,6 +4208,7 @@ class Text(CharacterData):
     @property  # TODO - is this correct?
     def firstChild(self):
         return None  # ?
+
     # https://www.w3.org/TR/2000/CR-DOM-Level-2-20000510/core.html
     # lvl 2 spec has nochildren on bunch of NodeTypes. might mean overrides required
     #  to null certain behaviours. i.e. treewalker is having issues here.
@@ -4759,11 +5029,10 @@ class Sanitizer:
 
         # casting as object gives us . notation
         # from htmlx.javascript import Object
-        
+
         class Object(dict):
             def __init__(self, *args, **kwargs):
                 pass
-            
 
         self._default_configuration = Object(
             {
