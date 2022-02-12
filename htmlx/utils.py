@@ -9,8 +9,6 @@ from collections import Counter
 from itertools import chain, islice
 from re import sub
 
-from htmlx.decorators import deprecated
-
 
 class Utils(object):
     """Utils"""
@@ -214,23 +212,6 @@ class Utils(object):
         return freq
 
     @staticmethod
-    def init_assets(dir: str = "assets") -> None:
-        """[creates an assets directory with nested js/css/img dirs]
-
-        Args:
-            dir (str, optional): [default directory name]. Defaults to 'assets'.
-        """
-        from htmlx.terminal import mkdir, touch
-
-        mkdir(f"{dir}")
-        mkdir(f"{dir}/js")
-        mkdir(f"{dir}/css")
-        mkdir(f"{dir}/img")
-        touch(f"{dir}/js/master.js")
-        touch(f"{dir}/css/style.css")
-        return
-
-    @staticmethod
     def url2file(url: str) -> str:
         """[gen a safe filename from a url. by replacing '/' for '_' and ':' for '__' ]
 
@@ -419,109 +400,3 @@ class Utils(object):
         import sys
 
         return sys.platform.startswith("linux")
-
-    # def convert_file(filepath, filetype=None):
-    #     """
-    #         convert a file to a different file type
-    #         mostly deals with config files
-    #     """
-    #  files = ['json', 'ini', 'xml', 'yaml', 'yml', 'toml', 'properties', 'conf', 'rc', 'sh', 'bash', 'bat', 'cmd', 'c', 'cpp', 'h', 'hpp', 'java', 'js', 'json', 'md', 'markdown', 'pl', 'py', 'rb', 'sh', 'sql', 'txt', 'xml', 'yaml', 'yml', 'toml']
-
-    '''
-    @staticmethod
-    def yeahnah(x):
-        """ returns a boolean for any given user reply
-        """
-        reply = x.lower()
-        if reply.lower() in ['yeah', "y", "yes", "yup", "si", "yep", "yeah", "yep"]:
-            return True
-        elif reply.lower() in ['nah', "no", "nope", "n"]:
-            return False
-        else:
-            # return a probability between 0 and 1 for either yes or no based on which list has the most similar words to the input
-            # return max([float(reply.count(x)) / len(reply) for x in ['yeah', "y", "yes", "yup", "si", "yep", "yeah", "yep"]]) > max([float(reply.count(x)) / len(reply) for x in ['nah', "n", "no", "nope", "nop", "nope", "n", "nope"]])
-            # return max([float(reply.count(x)) / len(reply) for x in ['yeah', "y", "yes", "yup", "si", "yep", "yeah", "yep"]]) > 0.5
-        else:
-            return None
-    '''
-
-    # def get_ip(self):
-    #     """[get the current ip]
-
-    #     Returns:
-    #         [str]: [the current ip]
-    #     """
-    #     import socket
-    #     return socket.gethostbyname(socket.gethostname())
-
-    # def get_hostname(self):
-    #     """[get the current hostname]
-
-    #     Returns:
-    #         [str]: [the current hostname]
-    #     """
-    #     import socket
-    #     return socket.gethostname()
-
-    # def get_mac(self):
-    #     """[get the current mac]
-
-    #     Returns:
-    #         [str]: [the current mac]
-    #     """
-    #     import uuid
-    #     return uuid.UUID(int=uuid.getnode()).hex[-12:]
-
-    # def get_ip_mac(self):
-    #     """[get the current ip and mac]
-
-    #     Returns:
-    #         [str]: [the current ip and mac]
-    #     """
-    #     return self.get_ip() + "|" + self.get_mac()
-
-    # def get_os(self):
-    #     """[get the current os]
-
-    #     Returns:
-    #         [str]: [the current os]
-    #     """
-    #     import platform
-    #     return platform.system()
-
-    # def get_os_version(self):
-    #     """[get the current os version]
-
-    #     Returns:
-    #         [str]: [the current os version]
-    #     """
-    #     import platform
-    #     return platform.release()
-
-    # def get_os_arch(self):
-    #     """[get the current os architecture]
-
-    #     Returns:
-    #         [str]: [the current os architecture]
-    #     """
-    #     import platform
-    #     return platform.machine()
-
-    # def get_cpu(self):
-    #     """[get the current cpu]
-
-    #     Returns:
-    #         [str]: [the current cpu]
-    #     """
-    #     import platform
-    #     return platform.processor()
-
-    @staticmethod
-    def numberToBase(n, b):
-        if n == 0:
-            return [0]
-        digits = []
-        while n:
-            digits.append(int(n % b))
-            n //= b
-        return digits[::-1]
