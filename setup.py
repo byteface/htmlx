@@ -7,7 +7,7 @@ from htmlx import __version__ as version
 
 def read(filename):
     """Returns the contents of a file."""
-    with open(filename, encoding='utf-8') as file:
+    with open(filename, encoding="utf-8") as file:
         return file.read()
 
 

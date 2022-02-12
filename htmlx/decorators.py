@@ -41,10 +41,13 @@ def silence(*args, **kwargs):
 
 
 def as_json(func):
-    """ decorate any function to return json instead of a python obj
-        note - used by JSON.py
+    """decorate any function to return json instead of a python obj
+    note - used by JSON.py
     """
+
     def JSON_decorator(*args, **kwargs):
         import json
+
         return json.dumps(func(*args, **kwargs))
+
     return JSON_decorator
