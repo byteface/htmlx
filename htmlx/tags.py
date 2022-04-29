@@ -549,7 +549,7 @@ class form(Element):
         Element.__init__(self, *args, **kwargs)
 
     @property
-    def elements(self):
+    def elements(self) -> list:
         kids = []
         for child in self.children:
             if isinstance(

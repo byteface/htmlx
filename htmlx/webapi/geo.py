@@ -5,7 +5,7 @@
 """
 
 from htmlx.events import Event
-from htmlx.javascript import Error
+# from htmlx.javascript import Error
 
 
 class Geolocation:
@@ -37,7 +37,7 @@ class GeolocationCoordinates:
     speed = None
 
 
-class GeolocationError(Error):
+class GeolocationError:  # (Error):
 
     PERMISSION_DENIED = 1
     POSITION_UNAVAILABLE = 2

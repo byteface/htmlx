@@ -277,27 +277,27 @@ class Utils(object):
         s = s.replace("&amp;", "&")
         return s
 
-    @staticmethod
-    def replace_between(
-        content: str, match: str, replacement: str, start: int = 0, end: int = 0
-    ):
-        """[replace some text but only between certain indexes]
+    # @staticmethod
+    # def replace_between(
+    #     content: str, match: str, replacement: str, start: int = 0, end: int = 0
+    # ):
+    #     """[replace some text but only between certain indexes]
 
-        Args:
-            content (str): [the content whos text you will be replacing]
-            match (str): [the string to find]
-            replacement (str): [the string to replace it with]
-            start (int, optional): [start index]. Defaults to 0.
-            end (int, optional): [end index]. Defaults to 0.
+    #     Args:
+    #         content (str): [the content whos text you will be replacing]
+    #         match (str): [the string to find]
+    #         replacement (str): [the string to replace it with]
+    #         start (int, optional): [start index]. Defaults to 0.
+    #         end (int, optional): [end index]. Defaults to 0.
 
-        Returns:
-            [str]: [the new string]
-        """
-        front = content[0:start]
-        mid = content[start:end]
-        end = content[end : len(content)]
-        mid = mid.replace(match, replacement)
-        return front + mid + end
+    #     Returns:
+    #         [str]: [the new string]
+    #     """
+    #     front = content[0: start]
+    #     mid = content[start: end]
+    #     end = content[end: len(content)]
+    #     mid = mid.replace(match, replacement)
+    #     return front + mid + end
 
     @staticmethod
     def truncate(text: str = "", length: int = 0) -> str:
@@ -337,25 +337,25 @@ class Utils(object):
             except Exception:
                 raise ValueError("text must be a string")
 
-    @staticmethod
-    def has_internet(url: str = "http://www.google.com/", timeout: int = 5) -> bool:
-        """[check if you have internet connection]
+    # @staticmethod
+    # def has_internet(url: str = "http://www.google.com/", timeout: int = 5) -> bool:
+    #     """[check if you have internet connection]
 
-        Args:
-            url (str, optional): [the url to check]. Defaults to 'http://www.google.com/'.
-            timeout (int, optional): [the timeout]. Defaults to 5.
+    #     Args:
+    #         url (str, optional): [the url to check]. Defaults to 'http://www.google.com/'.
+    #         timeout (int, optional): [the timeout]. Defaults to 5.
 
-        Returns:
-            [bool]: [True if you have internet]
-        """
-        import requests
+    #     Returns:
+    #         [bool]: [True if you have internet]
+    #     """
+    #     import requests
 
-        try:
-            _ = requests.head(url, timeout=timeout)
-            return True
-        except requests.ConnectionError:
-            # print("No internet connection available.")
-            return False
+    #     try:
+    #         _ = requests.head(url, timeout=timeout)
+    #         return True
+    #     except requests.ConnectionError:
+    #         # print("No internet connection available.")
+    #         return False
 
     @staticmethod
     def is_nix() -> bool:

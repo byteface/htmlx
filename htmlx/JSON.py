@@ -39,7 +39,7 @@ def parse(json_string: str):
     return json.loads(json_string)
 
 
-def stringify(data, filepath: str = None, **kwargs):
+def stringify(data, filepath=None, **kwargs):
     """[stringify a python object]
 
     Args:

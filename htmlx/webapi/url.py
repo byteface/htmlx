@@ -67,17 +67,17 @@ class URL(object):
         """
         self.url = urllib.parse.urlsplit(url)
         self.href = url  # self.url.geturl()
-        self.protocol = self.url.scheme
-        self.hostname = self.url.hostname
-        self.port = self.url.port
-        self.host = self.url.hostname
+        self.protocol = str(self.url.scheme)
+        self.hostname = str(self.url.hostname)
+        self.port = str(self.url.port)
+        self.host = str(self.url.hostname)
         self.pathname = self.url.path
         self.hash = ""
         self.search = self.url.query
         self._searchParams = URLSearchParams(self.url.query)
 
     @property
-    def searchParams(self):
+    def searchParams(self) -> str:
         return self._searchParams.toString()
 
     def toString(self):
@@ -96,7 +96,7 @@ class URL(object):
     #     self.href = href
 
     @property
-    def protocol(self):
+    def protocol(self) -> str:
         return self.__protocol
 
     @protocol.setter
@@ -106,7 +106,7 @@ class URL(object):
         self.__update__()
 
     @property
-    def hostname(self):
+    def hostname(self) -> str:
         return self.__hostname
 
     @hostname.setter
@@ -119,7 +119,7 @@ class URL(object):
         self.__update__()
 
     @property
-    def port(self):
+    def port(self) -> str:
         return self.__port
 
     @port.setter
@@ -128,7 +128,7 @@ class URL(object):
         self.__update__()
 
     @property
-    def host(self):
+    def host(self) -> str:
         if self.port is not None:
             return self.hostname + ":" + str(self.port)
         else:
@@ -140,7 +140,7 @@ class URL(object):
             return
         p = self.port
         if ":" in h:
-            p = int(h.split(":")[1])
+            p = str(int(h.split(":")[1]))
             h = h.split(":")[0]
         self.__host = h
         self.hostname = h
@@ -148,7 +148,7 @@ class URL(object):
         self.__update__()
 
     @property
-    def pathname(self):
+    def pathname(self) -> str:
         return self.__pathname
 
     @pathname.setter
@@ -157,7 +157,7 @@ class URL(object):
         self.__update__()
 
     @property
-    def hash(self):
+    def hash(self) -> str:
         """ " hash Sets or returns the anchor part (#) of a URL"""
         if "#" in self.href:
             return "#" + self.href.split("#")[1]
@@ -242,7 +242,7 @@ class URLSearchParams:
     """[utility methods to work with the query string of a URL]"""
 
     def __init__(self, paramString):  # , **paramsObj):
-        """[Returns a URLSearchParams object instance.]
+        """[Returns a str object instance.]
 
         Args:
             paramString ([type]): [ i.e. q=URLUtils.searchParams&topic=api]

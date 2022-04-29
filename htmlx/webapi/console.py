@@ -4,6 +4,8 @@
     https://developer.mozilla.org/en-US/docs/Web/API/Console_API
 """
 
+from typing import Any, Dict, List, Optional, Union
+
 
 class Console(object):
     @staticmethod
@@ -41,7 +43,7 @@ class Console(object):
         """error"""
         raise error
 
-    _timers = {}
+    _timers: Dict = {}
 
     @staticmethod
     def _getTime():
@@ -62,23 +64,23 @@ class Console(object):
         """
         Console._timers[label] = Console._getTime()  # time.time_ns() // 1000
 
-    @staticmethod
-    def timeLog(label: str = None):
-        """[summary]
+    # @staticmethod
+    # def timeLog(label: str = None):
+    #     """[summary]
 
-        Args:
-            label (str): [The name to of the timer to log]
+    #     Args:
+    #         label (str): [The name to of the timer to log]
 
-        Returns:
-            [type]: [description]
-        """
-        try:
-            # if label = None
-            end = Console._getTime()  # time.time_ns() // 1000
-            print(str(end - Console._timers[label]) + "ms")
-            return str(end - Console._timers[label]) + "ms"
-        except Exception:
-            print("Timer " + label + " does not exist")
+    #     Returns:
+    #         [type]: [description]
+    #     """
+    #     try:
+    #         # if label = None
+    #         end = Console._getTime()  # time.time_ns() // 1000
+    #         print(str(end - Console._timers[label]) + "ms")
+    #         return str(end - Console._timers[label]) + str("ms")
+    #     except Exception:
+    #         print("Timer " + label + " does not exist")
 
     @staticmethod
     def timeEnd(label: str):
@@ -207,7 +209,51 @@ class Console(object):
         # trace()
         Console.__count_var = 0
 
+    @staticmethod
+    def info(self, msg: str, substitute=None, *args):
+        """prints a message to the console
 
-Console.info = Console.log  # info()
-Console.warn = Console.log  # warn()
+        Args:
+            msg (str): msg to log
+            substitute : replaces %s or %d with this
+        """
+        msg = str(msg)
+        argstring = str(*args)
+        if substitute is not None:
+            if "%d" not in msg and "%s" not in msg:
+                argstring = argstring + " " + str(substitute)
+            elif isinstance(substitute, (int, float)):
+                msg = str(substitute).join(msg.split("%d"))
+            elif isinstance(substitute, str):
+                msg = substitute.join(msg.split("%s"))
+
+        # print(args)
+        print(msg + argstring)
+        return msg + argstring
+
+    @staticmethod
+    def warn(self, msg: str, substitute=None, *args):
+        """prints a message to the console
+
+        Args:
+            msg (str): msg to log
+            substitute : replaces %s or %d with this
+        """
+        msg = str(msg)
+        argstring = str(*args)
+        if substitute is not None:
+            if "%d" not in msg and "%s" not in msg:
+                argstring = argstring + " " + str(substitute)
+            elif isinstance(substitute, (int, float)):
+                msg = str(substitute).join(msg.split("%d"))
+            elif isinstance(substitute, str):
+                msg = substitute.join(msg.split("%s"))
+
+        # print(args)
+        print(msg + argstring)
+        return msg + argstring
+
+
+# Console.info = Console.log  # info()
+# Console.warn = Console.log  # warn()
 console = Console

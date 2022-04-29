@@ -6,7 +6,7 @@
 """
 
 from htmlx.dom import Element
-from htmlx.html import closed_tag
+from htmlx.tags import closed_tag
 
 x3d = X3D = type("x3d", (Element,), {"name": "x3d"})
 scene = Scene = type("scene", (Element,), {"name": "scene"})

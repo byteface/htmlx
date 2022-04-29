@@ -67,7 +67,7 @@ class Storage:
         """Returns an integer representing the number of data items stored in the Storage object."""
         return len(self)
 
-    def _save(self) -> None:
+    def _save(self) -> bool:
         if self.has_file:
             with open(self.filepath, "w") as f:
                 json.dump(self.storage, f)

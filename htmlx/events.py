@@ -8,13 +8,13 @@
 
 # from typing import *
 import time
-
+from typing import Dict, List, Optional, Union
 
 class EventTarget(object):
     """EventTarget is a class you can extend to give your obj event dispatching abilities"""
 
     def __init__(self, *args, **kwargs) -> None:
-        self.listeners = {}
+        self.listeners: Dict = {}
 
     def hasEventListener(self, _type: str) -> bool:
         return _type in self.listeners
@@ -202,8 +202,9 @@ class Event(object):
     def composedPath(self):
         return self.type + ":" + str(self.timeStamp)
 
-    def initEvent(self, _type: str = None, *args, **kwargs) -> "Event":
-        self.__init__(_type, args, kwargs)
+    # def initEvent(self, _type: str = None, *args, **kwargs) -> "Event":
+    #     self.__init__(_type, args, kwargs)
+    #     return self
 
     def stopPropagation(self):
         """[prevents further propagation of the current event in the capturing and bubbling phases]"""
@@ -249,14 +250,15 @@ class UIEvent(Event):
         self.sourceCapabilities = options.get("sourceCapabilities", None)
         super().__init__(_type, options, *args, **kwargs)
 
-    def initUIEvent(
-        self, _type: str, canBubble: bool, cancelable: bool, view, detail
-    ) -> "UIEvent":
-        self._type = _type
-        self.canBubble = canBubble
-        self.cancelable = cancelable
-        self.view = view
-        self.detail = detail
+    # def initUIEvent(
+    #     self, _type: str, canBubble: bool, cancelable: bool, view, detail
+    # ) -> "UIEvent":
+    #     self._type = _type
+    #     self.canBubble = canBubble
+    #     self.cancelable = cancelable
+    #     self.view = view
+    #     self.detail = detail
+    #     return self
 
 
 class MouseEvent(UIEvent):
@@ -283,89 +285,89 @@ class MouseEvent(UIEvent):
         self._ctrlKey: bool = options.get("ctrlKey", False)
         self._shiftKey: bool = options.get("shiftKey", False)
         self._metaKey: bool = options.get("metaKey", False)
-        self._button = None
-        self._buttons = []
+        self._button = 0  #None
+        # self._buttons = []
         super().__init__(_type, options, *args, **kwargs)
 
-    def initMouseEvent(
-        self,
-        _type: str = None,
-        canBubble: bool = True,
-        cancelable: bool = True,
-        view=None,
-        detail=None,
-        screenX: float = 0,
-        screenY: float = 0,
-        clientX: float = 0,
-        clientY: float = 0,
-        ctrlKey: bool = False,
-        altKey: bool = False,
-        shiftKey: bool = False,
-        metaKey: bool = False,
-        button=None,
-        relatedTarget=None,
-        from_json={},
-        *args,
-        **kwargs
-    ) -> "MouseEvent":
-        # print('initMouseEvent')
-        self._type = _type
-        self.canBubble = canBubble
-        self.cancelable = cancelable
-        self.view = view
-        self.detail = detail
-        self.screenX = screenX
-        self.screenY = screenY
-        self._clientX = clientX
-        self._clientY = clientY
-        self._ctrlKey = ctrlKey
-        self._altKey = altKey
-        self._shiftKey = shiftKey
-        self._metaKey = metaKey
-        self._button = button
-        self.relatedTarget = relatedTarget
-        # TODO - parse from_json - so can relay
+    # def initMouseEvent(
+    #     self,
+    #     _type: str = None,
+    #     canBubble: bool = True,
+    #     cancelable: bool = True,
+    #     view=None,
+    #     detail=None,
+    #     screenX: float = 0,
+    #     screenY: float = 0,
+    #     clientX: float = 0,
+    #     clientY: float = 0,
+    #     ctrlKey: bool = False,
+    #     altKey: bool = False,
+    #     shiftKey: bool = False,
+    #     metaKey: bool = False,
+    #     button=None,
+    #     relatedTarget=None,
+    #     from_json={},
+    #     *args,
+    #     **kwargs
+    # ) -> "MouseEvent":
+    #     # print('initMouseEvent')
+    #     self._type = _type
+    #     self.canBubble = canBubble
+    #     self.cancelable = cancelable
+    #     self.view = view
+    #     self.detail = detail
+    #     self.screenX = screenX
+    #     self.screenY = screenY
+    #     self._clientX = clientX
+    #     self._clientY = clientY
+    #     self._ctrlKey = ctrlKey
+    #     self._altKey = altKey
+    #     self._shiftKey = shiftKey
+    #     self._metaKey = metaKey
+    #     self._button = button
+    #     self.relatedTarget = relatedTarget
+    #     # TODO - parse from_json - so can relay
 
     @property
-    def clientX(self):
+    def clientX(self) -> float:
         return self.x
 
     @property
-    def clientY(self):
+    def clientY(self) -> float:
         return self.y
 
     @property
-    def altKey(self):
+    def altKey(self) -> bool:
         return self._altKey
 
     @property
-    def ctrlKey(self):
+    def ctrlKey(self) -> bool:
         return self._ctrlKey
 
     @property
-    def shiftKey(self):
+    def shiftKey(self) -> bool:
         return self._shiftKey
 
     @property
-    def metaKey(self):
+    def metaKey(self) -> bool:
         return self._metaKey
 
     @property
-    def button(self):
+    def button(self) -> int:
         return self._button
 
-    @property
-    def buttons(self):
-        return self._buttons
+    # @property
+    # def buttons(self):
+    #     return self._buttons
 
     @property
-    def which(self):
+    def which(self) -> int:
         return self._button
 
-    # MOUSE_EVENT
-    def getModifierState(self):
-        """Returns an array containing target ranges that will be affected by the insertion/deletion"""
-        pass
+    # # MOUSE_EVENT
+    # def getModifierState(self):
+    #     """Returns an array containing target ranges that will be affected by the insertion/deletion"""
+    #     pass
 
     # MovementX Returns the horizontal coordinate of the mouse pointer relative to the position of the last mousemove event MouseEvent
     # MovementY Returns the vertical coordinate of the mouse pointer relative to the position of the last mousemove event   MouseEvent
@@ -405,46 +407,46 @@ class KeyboardEvent(UIEvent):
 
         super().__init__(_type, options, *args, **kwargs)
 
-    def initKeyboardEvent(
-        self,
-        typeArg: str,
-        canBubbleArg: bool,
-        cancelableArg: bool,
-        viewArg,
-        charArg,
-        keyArg,
-        locationArg,
-        modifiersListArg,
-        repeat,
-    ) -> "KeyboardEvent":
-        self._type = typeArg
-        self.canBubbleArg = canBubbleArg
-        self.cancelableArg = cancelableArg
-        self.viewArg = viewArg
-        self.charArg = charArg
-        self.keyArg = keyArg
-        self.locationArg = locationArg
-        self.modifiersListArg = modifiersListArg
-        self.repeat = repeat
+    # def initKeyboardEvent(
+    #     self,
+    #     typeArg: str,
+    #     canBubbleArg: bool,
+    #     cancelableArg: bool,
+    #     viewArg,
+    #     charArg,
+    #     keyArg,
+    #     locationArg,
+    #     modifiersListArg,
+    #     repeat,
+    # ) -> "KeyboardEvent":
+    #     self._type = typeArg
+    #     self.canBubbleArg = canBubbleArg
+    #     self.cancelableArg = cancelableArg
+    #     self.viewArg = viewArg
+    #     self.charArg = charArg
+    #     self.keyArg = keyArg
+    #     self.locationArg = locationArg
+    #     self.modifiersListArg = modifiersListArg
+    #     self.repeat = repeat
 
     @property
-    def altKey(self):
+    def altKey(self) -> bool:
         return self._altKey
 
     @property
-    def ctrlKey(self):
+    def ctrlKey(self) -> bool:
         return self._ctrlKey
 
     @property
-    def shiftKey(self):
+    def shiftKey(self) -> bool:
         return self._shiftKey
 
     @property
-    def metaKey(self):
+    def metaKey(self) -> bool:
         return self._metaKey
 
     @property
-    def unicode(self):
+    def unicode(self) -> str:
         return self.key
 
     # @property
@@ -840,41 +842,41 @@ class GamePadEvent(Event):
         super().__init__(_type, options, *args, **kwargs)
 
 
-# TODO - tests and service worker API
-class FetchEvent(Event):
-    """FetchEvent"""
+# # TODO - tests and service worker API
+# class FetchEvent(Event):
+#     """FetchEvent"""
 
-    FETCH: str = "fetch"  #:
+#     FETCH: str = "fetch"  #:
 
-    def __init__(self, _type: str, options: dict = None, *args, **kwargs) -> None:
-        options = options or kwargs  # if options is none use kwargs
-        self.clientId = None
-        """ Returns the client ID of the fetch request """
-        self.request = None
-        """ Returns the request object """
-        self.isReload = None
-        """ Returns whether the request is a reload or not """
-        super().__init__(_type, options, *args, **kwargs)
+#     def __init__(self, _type: str, options: dict = None, *args, **kwargs) -> None:
+#         options = options or kwargs  # if options is none use kwargs
+#         self.clientId = None
+#         """ Returns the client ID of the fetch request """
+#         self.request = None
+#         """ Returns the request object """
+#         # self.isReload = None
+#         """ Returns whether the request is a reload or not """
+#         super().__init__(_type, options, *args, **kwargs)
 
-    @property
-    def isReload(self):
-        return self.request.url == self.request.referrer
+#     # @property
+#     # def isReload(self):
+#     #     return self.request.url == self.request.referrer
 
-    @property
-    def replacesClientId(self):
-        return self.clientId != self.request.clientId
+#     @property
+#     def replacesClientId(self) -> bool:
+#         return self.clientId != self.request.clientId
 
-    @property
-    def resultingClientId(self):
-        return self.clientId if self.replacesClientId else self.request.clientId
+#     @property
+#     def resultingClientId(self) -> str:
+#         return self.clientId if self.replacesClientId else self.request.clientId
 
-    def respondWith(self, response):
-        """Returns a promise that resolves to the response object"""
-        pass
+#     # def respondWith(self, response):
+#     #     """Returns a promise that resolves to the response object"""
+#     #     pass
 
-    def waitUntil(self, promise):
-        """Returns a promise that resolves when the response is available"""
-        pass
+#     # def waitUntil(self, promise):
+#     #     """Returns a promise that resolves when the response is available"""
+#     #     pass
 
 
 class ExtendableEvent(Event):
@@ -888,7 +890,7 @@ class ExtendableEvent(Event):
         options = options or kwargs  # if options is none use kwargs
         self.extendable = None
         """ Returns whether the event is extendable or not """
-        self.timeStamp = None
+        # self.timeStamp = None
         """ Returns the time stamp of the event """
         # self.waitUntil(promise)
         """ Returns a promise that resolves when the event is handled """
@@ -999,33 +1001,33 @@ class DOMContentLoadedEvent(Event):
 #         super().__init__(_type, options, *args, **kwargs)
 
 
-class TweenEvent(Event):
-    """TweenEvent"""
+# class TweenEvent(Event):
+#     """TweenEvent"""
 
-    START: str = "onStart"  #:
-    STOP: str = "onStop"  #:
-    RESET: str = "onReset"  #:
-    PAUSE: str = "onPause"  #:
-    UNPAUSE: str = "onUnPause"  #:
-    UPDATE_START: str = "onUpdateStart"  #:
-    UPDATE_END: str = "onUpdateEnd"  #:
-    COMPLETE: str = "onComplete"  #:
+#     START: str = "onStart"  #:
+#     STOP: str = "onStop"  #:
+#     RESET: str = "onReset"  #:
+#     PAUSE: str = "onPause"  #:
+#     UNPAUSE: str = "onUnPause"  #:
+#     UPDATE_START: str = "onUpdateStart"  #:
+#     UPDATE_END: str = "onUpdateEnd"  #:
+#     COMPLETE: str = "onComplete"  #:
 
-    TIMER: str = "onTimer"  #:
-    _source = None
+#     TIMER: str = "onTimer"  #:
+#     _source = None
 
-    @property
-    def source(self):
-        return self._source
+#     @property
+#     def source(self):
+#         return self._source
 
-    @source.setter
-    def source(self, source):
-        self._source = source
+#     @source.setter
+#     def source(self, source):
+#         self._source = source
 
-    def __init__(self, _type, source=None, bubbles=False, cancelable=False):
-        # super.__init__(self, type, bubbles, cancelable)
-        super().__init__(_type)  # TODO -
-        self.source = source
+#     def __init__(self, _type, source=None, bubbles=False, cancelable=False):
+#         # super.__init__(self, type, bubbles, cancelable)
+#         super().__init__(_type)  # TODO -
+#         self.source = source
 
 
 class PromiseRejectionEvent(Event):  # TODO - put with the promise?
