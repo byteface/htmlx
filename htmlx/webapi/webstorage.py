@@ -38,14 +38,14 @@ class Storage:
     def __getitem__(self, key: str) -> str:
         return self.storage[key]
 
-    getItem = __getitem__
+    # getItem = __getitem__
 
     def __setitem__(self, key: str, value: str) -> None:
         self.storage[key] = value
         if self.has_file:
             self._save()
 
-    setItem = __setitem__
+    # setItem = __setitem__
 
     def __getattr__(self, key: str) -> str:
         return self.storage.get(key, None)

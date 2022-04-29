@@ -4,7 +4,7 @@
     https://developer.mozilla.org/en-US/docs/Web/API/Console_API
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, List, Optional, Union
 
 
 class Console(object):
@@ -30,7 +30,7 @@ class Console(object):
         print(msg + argstring)
         return msg + argstring
 
-    __count_var = 0
+    __count_var: ClassVar = 0
 
     @staticmethod
     def count() -> int:
@@ -43,7 +43,7 @@ class Console(object):
         """error"""
         raise error
 
-    _timers: Dict = {}
+    _timers: ClassVar = {}
 
     @staticmethod
     def _getTime():

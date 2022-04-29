@@ -8,7 +8,7 @@ import copy
 from http import client
 import re
 from turtle import clone
-from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Tuple, Union, ClassVar
 
 from htmlx.events import Event, EventTarget, MouseEvent
 from htmlx.geom.vec3 import vec3
@@ -21,29 +21,29 @@ from htmlx.webapi.url import URL
 class Node(EventTarget):
     """An abstract base class upon which many other DOM API objects are based"""
 
-    ELEMENT_NODE: int = 1
-    TEXT_NODE: int = 3
-    CDATA_SECTION_NODE: int = 4
-    PROCESSING_INSTRUCTION_NODE: int = 7
-    COMMENT_NODE: int = 8
-    DOCUMENT_NODE: int = 9
-    DOCUMENT_TYPE_NODE: int = 10
-    DOCUMENT_FRAGMENT_NODE: int = 11
+    ELEMENT_NODE: ClassVar = 1
+    TEXT_NODE: ClassVar = 3
+    CDATA_SECTION_NODE: ClassVar = 4
+    PROCESSING_INSTRUCTION_NODE: ClassVar = 7
+    COMMENT_NODE: ClassVar = 8
+    DOCUMENT_NODE: ClassVar = 9
+    DOCUMENT_TYPE_NODE: ClassVar = 10
+    DOCUMENT_FRAGMENT_NODE: ClassVar = 11
 
-    DOCUMENT_POSITION_DISCONNECTED: int = 1
-    DOCUMENT_POSITION_PRECEDING: int = 2
-    DOCUMENT_POSITION_FOLLOWING: int = 4
-    DOCUMENT_POSITION_CONTAINS: int = 8
-    DOCUMENT_POSITION_CONTAINED_BY: int = 16
-    DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: int = 32
+    DOCUMENT_POSITION_DISCONNECTED: ClassVar = 1
+    DOCUMENT_POSITION_PRECEDING: ClassVar = 2
+    DOCUMENT_POSITION_FOLLOWING: ClassVar = 4
+    DOCUMENT_POSITION_CONTAINS: ClassVar = 8
+    DOCUMENT_POSITION_CONTAINED_BY: ClassVar = 16
+    DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC: ClassVar = 32
 
     # The following constants have been deprecated and should not be used anymore.
-    ATTRIBUTE_NODE: int = 2
-    ENTITY_REFERENCE_NODE: int = 5
-    ENTITY_NODE: int = 6
-    NOTATION_NODE: int = 12
+    ATTRIBUTE_NODE: ClassVar = 2
+    ENTITY_REFERENCE_NODE: ClassVar = 5
+    ENTITY_NODE: ClassVar = 6
+    NOTATION_NODE: ClassVar = 12
 
-    __context = (
+    __context: ClassVar = (
         None  # private. tags will append to last item in context on creation.
     )
 
@@ -619,22 +619,23 @@ class Node(EventTarget):
             # return aChild  # causes max recursion when called chained? then don't chain?
             return aChild
 
-    append_child = appendChild
+    # append_child = appendChild
 
     @property
     def childElementCount(self) -> int:
         """Returns the number of child elements an element has"""
         return len(self.args)
 
-    child_element_count = childElementCount
+    # child_element_count = childElementCount
 
     @property
-    def childNodes(self) -> "NodeList":
+    def childNodes(self) -> Any:  #"NodeList":
         """Returns a live NodeList containing all the children of this node"""
         # return list(self.args)
-        return NodeList(self.args)
+        # return NodeList(self.args)
+        return list(self.args)
 
-    child_nodes = childNodes
+    # child_nodes = childNodes
 
     @property
     def children(self) -> List["Node"]:
@@ -718,7 +719,7 @@ class Node(EventTarget):
         else:
             return Node.DOCUMENT_POSITION_FOLLOWING
 
-    compare_document_position = compareDocumentPosition
+    # compare_document_position = compareDocumentPosition
 
     def contains(self, node: "Node") -> bool:
         """Check whether a node is a descendant of a given node"""
@@ -739,13 +740,13 @@ class Node(EventTarget):
         except Exception:
             return None
 
-    first_child = firstChild
+    # first_child = firstChild
 
     def hasChildNodes(self) -> bool:
         """Returns true if an element has any child nodes, otherwise false"""
         return len(self.args) > 0
 
-    has_child_nodes = hasChildNodes
+    # has_child_nodes = hasChildNodes
 
     @property
     def lastChild(self) -> Any:
@@ -755,7 +756,7 @@ class Node(EventTarget):
         except Exception:
             return None
 
-    last_child = lastChild
+    # last_child = lastChild
 
     @property
     def localName(self) -> Any:
@@ -764,7 +765,7 @@ class Node(EventTarget):
         except Exception:
             return None
 
-    local_name = localName
+    # local_name = localName
 
     @property
     def nodeName(self) -> Any:
@@ -798,13 +799,13 @@ class Node(EventTarget):
             except Exception:
                 return None
 
-    node_name = nodeName
+    # node_name = nodeName
 
-    # @property
-    # def nodeType(self):
-    #     """ Returns the node type of a node """
-    #     return self.ELEMENT_NODE
-    nodeType: int = ELEMENT_NODE
+    @property
+    def nodeType(self) -> int:
+        """ Returns the node type of a node """
+        return self.ELEMENT_NODE
+    # nodeType: int = ELEMENT_NODE
 
     @property
     def nodeValue(self) -> Any:
@@ -829,7 +830,7 @@ class Node(EventTarget):
         self.args = (content,)
         return content
 
-    node_value = nodeValue
+    # node_value = nodeValue
 
     @property
     def ownerDocument(self) -> Any:
@@ -841,7 +842,7 @@ class Node(EventTarget):
         # self.rootNode = newOwner # NOTE - you can't set rootNode it's property that calcs it
         pass
 
-    owner_document = ownerDocument
+    # owner_document = ownerDocument
 
     @property
     def rootNode(self) -> Any:
@@ -855,13 +856,13 @@ class Node(EventTarget):
             return self
 
         node = self
-        nxt = self.parentNode
+        nxt: Any = self.parentNode
         while nxt is not None:
             node = nxt
             nxt = nxt.parentNode
         return node
 
-    root_node = rootNode
+    # root_node = rootNode
 
     def insertBefore(self, new_node, reference_node=None):
         """inserts a node before a reference node as a child of a specified parent node.
@@ -882,7 +883,7 @@ class Node(EventTarget):
             )
         return new_node
 
-    insert_before = insertBefore
+    # insert_before = insertBefore
 
     def removeChild(self, node):
         """removes a child node from the DOM and returns the removed node."""
@@ -904,7 +905,7 @@ class Node(EventTarget):
 
         return None
 
-    remove_child = removeChild
+    # remove_child = removeChild
 
     def replaceChild(self, newChild, oldChild):
         """[Replaces a child node within the given (parent) node.]
@@ -937,7 +938,7 @@ class Node(EventTarget):
 
         # return None
 
-    replace_child = replaceChild
+    # replace_child = replaceChild
 
     def cloneNode(self, deep: bool = True):
         """Returns a copy."""
@@ -948,19 +949,19 @@ class Node(EventTarget):
         else:
             return copy.copy(self)  # shallow copy
 
-    clone_node = cloneNode
+    # clone_node = cloneNode
 
     def isSameNode(self, node):
         """Checks if two elements are the same node"""
         return self == node
 
-    is_same_node = isSameNode
+    # is_same_node = isSameNode
 
     def isEqualNode(self, node):
         """Checks if two elements are equal"""
         return str(self) == str(node)
 
-    is_equal_node = isEqualNode
+    # is_equal_node = isEqualNode
 
     def getRootNode(self, options=None):
         # if options is not None:
@@ -968,7 +969,7 @@ class Node(EventTarget):
         # TODO - need to implement composed
         return self.rootNode
 
-    get_root_node = getRootNode
+    # get_root_node = getRootNode
 
     def isDefaultNamespace(self, ns):
         """Checks if a namespace is the default namespace"""
@@ -977,7 +978,7 @@ class Node(EventTarget):
         else:
             return False
 
-    is_default_namespace = isDefaultNamespace
+    # is_default_namespace = isDefaultNamespace
 
     def lookupNamespaceURI(self, ns: str):
         """Returns the namespace URI for a given prefix
@@ -992,7 +993,7 @@ class Node(EventTarget):
         # else:
         return None
 
-    lookup_namespace_uri = lookupNamespaceURI
+    # lookup_namespace_uri = lookupNamespaceURI
 
     def lookupPrefix(self, ns):
         """Returns the prefix for a given namespace URI"""
@@ -1001,7 +1002,7 @@ class Node(EventTarget):
         else:
             return None
 
-    lookup_prefix = lookupPrefix
+    # lookup_prefix = lookupPrefix
 
     @property
     def nextSibling(self) -> Any:
@@ -1016,7 +1017,7 @@ class Node(EventTarget):
                     else:
                         return self.parentNode.args[count + 1]
 
-    next_sibling = nextSibling
+    # next_sibling = nextSibling
 
     def normalize(self):
         """Normalize a node's value"""
@@ -1035,7 +1036,7 @@ class Node(EventTarget):
                     else:
                         return self.parentNode.args[count - 1]
 
-    previous_sibling = previousSibling
+    # previous_sibling = previousSibling
 
     @property
     def textContent(self) -> Any:
@@ -1062,7 +1063,7 @@ class Node(EventTarget):
         self.args = (content,)
         return content
 
-    text_content = textContent
+    # text_content = textContent
 
     # def isSupported(self): return False #  🗑
     # getUserData() 🗑️
@@ -1432,62 +1433,62 @@ class DOMStringMap(object):
     #     return [item.value for item in self.args]
 
 
-class DOMTokenList(list):
-    """DOMTokenList represents a set of space-separated tokens."""
+# class DOMTokenList(list):
+#     """DOMTokenList represents a set of space-separated tokens."""
 
-    def __init__(self, element: 'Node'):
-        self.el = element
-        # trim and split on whitespace
-        # classes = element.className.replace(r'^\s+|\s+$/g', '').split(r'\s+/')
-        self.classes = element.className.split(' ')
-        self.classes = [x.strip() for x in self.classes]
-        super().__init__(self.classes)
+#     def __init__(self, element: 'Node'):
+#         self.el = element
+#         # trim and split on whitespace
+#         # classes = element.className.replace(r'^\s+|\s+$/g', '').split(r'\s+/')
+#         self.classes = element.className.split(' ')
+#         self.classes = [x.strip() for x in self.classes]
+#         super().__init__(self.classes)
 
-    def add(self, *args):
-        """ Adds the given tokens to the list """
-        for item in args:
-            if item not in self:
-                self.append(item)
-                self.el.className = self.toString()
+#     def add(self, *args):
+#         """ Adds the given tokens to the list """
+#         for item in args:
+#             if item not in self:
+#                 self.append(item)
+#                 self.el.className = self.toString()
 
-    def remove(self, *args):
-        """ Removes the given tokens from the list """
-        for item in args:
-            if item in self:
-                super().remove(item)
-                self.el.className = self.toString()
+#     def remove(self, *args):
+#         """ Removes the given tokens from the list """
+#         for item in args:
+#             if item in self:
+#                 super().remove(item)
+#                 self.el.className = self.toString()
 
-    def toggle(self, token, force=None):
-        """ If force is not given, removes token from list if present,
-        otherwise adds token to list. If force is true, adds token to list,
-        and if force is false, removes token from list if present. """
-        if force is None:
-            if token in self.args:
-                self.remove(token)
-            else:
-                self.append(token)
-        elif force is True:
-            self.add(token)
-        elif force is False:
-            self.remove(token)
-        else:
-            raise TypeError("force must be a boolean")
+#     def toggle(self, token, force=None):
+#         """ If force is not given, removes token from list if present,
+#         otherwise adds token to list. If force is true, adds token to list,
+#         and if force is false, removes token from list if present. """
+#         if force is None:
+#             if token in self.args:
+#                 self.remove(token)
+#             else:
+#                 self.append(token)
+#         elif force is True:
+#             self.add(token)
+#         elif force is False:
+#             self.remove(token)
+#         else:
+#             raise TypeError("force must be a boolean")
 
-    def contains(self, token) -> bool:
-        """ Returns true if the token is in the list, and false otherwise """
-        # return token in self.el.className
-        return token in self.classes
+#     def contains(self, token) -> bool:
+#         """ Returns true if the token is in the list, and false otherwise """
+#         # return token in self.el.className
+#         return token in self.classes
 
-    def item(self, index: int):
-        """ Returns the token at the specified index """
-        return self[index]  # or None
+#     def item(self, index: int):
+#         """ Returns the token at the specified index """
+#         return self[index]  # or None
 
-    def toString(self) -> str:
-        """ Returns a string containing all tokens in the list, with spaces separating each token """
-        return " ".join(self)
+#     def toString(self) -> str:
+#         """ Returns a string containing all tokens in the list, with spaces separating each token """
+#         return " ".join(self)
 
-    def __str__(self):
-        return self.toString()
+#     def __str__(self):
+#         return self.toString()
 
 
 class ShadowRoot(
@@ -1917,70 +1918,70 @@ class CustomStateSet(object):
 """
 
 
-class NodeList(list):
-    """NodeList objects are collections of nodes"""
+# class NodeList(list):
+#     """NodeList objects are collections of nodes"""
 
-    @property
-    def length(self) -> int:
-        return len(self)
+#     @property
+#     def length(self) -> int:
+#         return len(self)
 
-    def item(self, index):
-        """Returns an item in the list by its index, or null if the index is out-of-bounds."""
-        # An alternative to accessing nodeList[i] (which instead returns  undefined when i is out-of-bounds).
-        # This is mostly useful for non-JavaScript DOM implementations.
-        try:
-            return self[index]
-        except IndexError:
-            return None
+#     def item(self, index):
+#         """Returns an item in the list by its index, or null if the index is out-of-bounds."""
+#         # An alternative to accessing nodeList[i] (which instead returns  undefined when i is out-of-bounds).
+#         # This is mostly useful for non-JavaScript DOM implementations.
+#         try:
+#             return self[index]
+#         except IndexError:
+#             return None
 
-    # def items(self):
-    #     """ Returns a list of the nodes in the list."""
-    #     return self
+#     # def items(self):
+#     #     """ Returns a list of the nodes in the list."""
+#     #     return self
 
-    def entries(self) -> Iterable[Tuple[int, Node]]:
-        """Returns an iterator, allowing code to go through all key/value pairs contained in the collection.
-        (In this case, the keys are numbers starting from 0 and the values are nodes."""
-        # i.e.  Array [ 0, <p> ]
-        for i in range(len(self)):
-            yield i, self[i]
+#     def entries(self) -> Iterable[Tuple[int, Node]]:
+#         """Returns an iterator, allowing code to go through all key/value pairs contained in the collection.
+#         (In this case, the keys are numbers starting from 0 and the values are nodes."""
+#         # i.e.  Array [ 0, <p> ]
+#         for i in range(len(self)):
+#             yield i, self[i]
 
-    def forEach(self, func, thisArg=None) -> None:
-        """Calls a function for each item in the NodeList."""
-        # thisArg = thisArg or self
-        for i in range(len(self)):
-            func(self[i], i, self)
+#     def forEach(self, func, thisArg=None) -> None:
+#         """Calls a function for each item in the NodeList."""
+#         # thisArg = thisArg or self
+#         for i in range(len(self)):
+#             func(self[i], i, self)
 
-    def keys(self) -> Iterable[int]:
-        """Returns an iterator, allowing code to go through all the keys of the key/value pairs contained in the collection.
-        (In this case, the keys are numbers starting from 0.)"""
-        return iter(range(len(self)))
+#     def keys(self) -> Iterable[int]:
+#         """Returns an iterator, allowing code to go through all the keys of the key/value pairs contained in the collection.
+#         (In this case, the keys are numbers starting from 0.)"""
+#         return iter(range(len(self)))
 
-    def values(self) -> Iterable[Node]:
-        """Returns an iterator allowing code to go through all values (nodes) of the key/value pairs
-        contained in the collection."""
-        return iter(self)
+#     def values(self) -> Iterable[Node]:
+#         """Returns an iterator allowing code to go through all values (nodes) of the key/value pairs
+#         contained in the collection."""
+#         return iter(self)
 
 
-class RadioNodeList(NodeList):
-    # TODO - not tested
+# class RadioNodeList(NodeList):
+#     # TODO - not tested
 
-    def __init__(self, name: str):  # , owner: Element):
-        self.name: str = name
+#     def __init__(self, name: str):  # , owner: Element):
+#         self.name: str = name
 
-    # def __iter__(self):
-    #     return iter(self.getElementsByName(self.name))
+#     # def __iter__(self):
+#     #     return iter(self.getElementsByName(self.name))
 
-    # def __getitem__(self, index):
-    #     return self.getElementsByName(self.name)[index]
+#     # def __getitem__(self, index):
+#     #     return self.getElementsByName(self.name)[index]
 
-    # def __len__(self) -> int:
-    #     return len(self.getElementsByName(self.name))
+#     # def __len__(self) -> int:
+#     #     return len(self.getElementsByName(self.name))
 
-    # @property
-    # def value(self):
-    #     """Returns the value of the first element in the collection,
-    #     or null if there are no elements in the collection."""
-    #     return self[0].value if len(self) > 0 else None
+#     # @property
+#     # def value(self):
+#     #     """Returns the value of the first element in the collection,
+#     #     or null if there are no elements in the collection."""
+#     #     return self[0].value if len(self) > 0 else None
 
 
 class Element(Node):
@@ -2279,13 +2280,13 @@ class Element(Node):
         pass
 
     @property
-    def classList(self) -> DOMTokenList:
+    def classList(self) -> Iterable[Any]:
         """ Returns the value of the classList attribute of an element """
         cl = self.getAttribute('class')
         if cl is None:
-            return DOMTokenList(self)  # []  #TODO - fix this
+            return []  # DOMTokenList(self)  # []  #TODO - fix this
         else:
-            return DOMTokenList(self)
+            return cl.split(' ')  # []#DOMTokenList(self)
 
     @classList.setter
     def classList(self, newname: str):
@@ -2468,7 +2469,7 @@ class Element(Node):
 
     get_bounding_client_rect = getBoundingClientRect
 
-    def getElementsByClassName(self, className: str) -> "HTMLCollection":
+    def getElementsByClassName(self, className: str) -> Any:  # "HTMLCollection":
         """[Returns a collection of all child elements with the specified class name]
 
         Args:
@@ -2478,12 +2479,12 @@ class Element(Node):
             [type]: [a NodeList of all child elements with the specified class name]
         """
         # TODO - this will have to change as this i live and qsa aint.
-        # return self.querySelectorAll('.' + className)
-        return HTMLCollection(self.querySelectorAll("." + className))
+        return self.querySelectorAll('.' + className)
+        # return HTMLCollection(self.querySelectorAll("." + className))
 
     get_elements_by_class_name = getElementsByClassName
 
-    def getElementsByTagName(self, tagName: str) -> "HTMLCollection":
+    def getElementsByTagName(self, tagName: str) -> Any:  # "HTMLCollection":
         """[Returns a collection of all child elements with the specified tag name
 
         Args:
@@ -2492,7 +2493,7 @@ class Element(Node):
         Returns:
             [type]: [method returns a live HTMLCollection of elements with the given tag name.]
         """
-        elements = HTMLCollection()
+        elements = []  #HTMLCollection()
 
         def anon(el):
             if self._matchElement(el, tagName):
@@ -2896,7 +2897,7 @@ class Element(Node):
         """Converts an element to a string"""
         return str(self)
 
-    to_string = toString
+    # to_string = toString
 
     # def __dir__(self) -> Iterable[str]:
     #     return super().__dir__() + [
@@ -2976,7 +2977,7 @@ class DOMImplementation(object):
         d.doctype = doctype
         return d
 
-    create_document = createDocument
+    # create_document = createDocument
 
     def createDocumentType(
         self, qualifiedName: str, publicId: str, systemId: str
@@ -2993,7 +2994,7 @@ class DOMImplementation(object):
         """
         return DocumentType(qualifiedName, publicId, systemId)
 
-    create_document_type = createDocumentType
+    # create_document_type = createDocumentType
 
     def createHTMLDocument(self, title=None):
         # d = Document()
@@ -3004,13 +3005,13 @@ class DOMImplementation(object):
         # return d
         pass
 
-    create_html_document = createHTMLDocument
+    # create_html_document = createHTMLDocument
 
     def hasFeatures(self, featureList) -> bool:
         # return True
         pass
 
-    has_features = hasFeatures
+    # has_features = hasFeatures
 
 
 class ProcessingInstruction(Node):
@@ -3456,28 +3457,28 @@ class Document(Element):
         """Creates an attribute node"""
         return Attr(name)
 
-    create_attribute = createAttribute
+    # create_attribute = createAttribute
 
     @staticmethod
     def createComment(message):
         """Creates a Comment node with the specified text"""
         return Comment(message)
 
-    create_comment = createComment
+    # create_comment = createComment
 
     @staticmethod
     def createDocumentFragment(*args):
         """Creates an empty DocumentFragment node if not content passed. I added args as optional to pass content"""
         return DocumentFragment(*args)
 
-    create_document_fragment = createDocumentFragment
+    # create_document_fragment = createDocumentFragment
 
     @staticmethod
     def createExpression(xpath, nsResolver):
         """Creates an XPathExpression object for the given XPath string."""
         return XPathExpression(xpath, nsResolver)
 
-    create_expression = createExpression
+    # create_expression = createExpression
 
     # TODO - this whole functoin is backwards. i.e. html should be taking it from here
     @staticmethod
@@ -3487,7 +3488,7 @@ class Document(Element):
 
         return create_element(_type, *args, **kwargs)
 
-    create_element = createElement
+    # create_element = createElement
 
     @staticmethod
     def createElementNS(namespaceURI, qualifiedName, options=None):
@@ -3496,7 +3497,7 @@ class Document(Element):
         el.namespaceURI = namespaceURI
         return el()
 
-    create_element_ns = createElementNS
+    # create_element_ns = createElementNS
 
     @staticmethod
     def createEvent(event_type=None):
@@ -3516,7 +3517,7 @@ class Document(Element):
             return Event()
         return Event()
 
-    create_event = createEvent
+    # create_event = createEvent
 
     @staticmethod
     def createTextNode(text):
@@ -3530,7 +3531,7 @@ class Document(Element):
         """
         return Text(text)
 
-    create_text_node = createTextNode
+    # create_text_node = createTextNode
 
     @staticmethod
     def createTreeWalker(
@@ -3549,28 +3550,28 @@ class Document(Element):
         whatToShow = NodeFilter.SHOW_ALL if whatToShow == None else whatToShow
         return TreeWalker(root, whatToShow, filter, entityReferenceExpansion)
 
-    create_tree_walker = createTreeWalker
+    # create_tree_walker = createTreeWalker
 
     @staticmethod
     def createProcessingInstruction(target, data):
         """Creates a ProcessingInstruction node with the specified target and data"""
         return ProcessingInstruction(target, data)
 
-    create_processing_instruction = createProcessingInstruction
+    # create_processing_instruction = createProcessingInstruction
 
     @staticmethod
     def createEntityReference(name):
         """Creates an EntityReference node with the specified name"""
         return EntityReference(name)
 
-    create_entity_reference = createEntityReference
+    # create_entity_reference = createEntityReference
 
     @property
     def xmlversion(self) -> str:
         """Returns the version of XML used for the document"""
         return "1.0"
 
-    xml_version = xmlversion
+    # xml_version = xmlversion
 
     # @property
     # def currentScript(self):
@@ -3582,7 +3583,7 @@ class Document(Element):
         """Creates a CDATASection node with the specified data"""
         return CDATASection(data)
 
-    create_cdata_section = createCDATASection
+    # create_cdata_section = createCDATASection
 
     # @staticmethod
     # def createAttributeNS(namespaceURI, qualifiedName):
@@ -3594,7 +3595,7 @@ class Document(Element):
         """Creates a Range"""
         return Range()
 
-    create_range = createRange
+    # create_range = createRange
 
     @staticmethod
     def createNodeIterator(root, whatToShow=None, filter=None):
@@ -3602,7 +3603,7 @@ class Document(Element):
         whatToShow = NodeFilter.SHOW_ALL if whatToShow == None else whatToShow
         return NodeIterator(root, whatToShow, filter)
 
-    create_node_iterator = createNodeIterator
+    # create_node_iterator = createNodeIterator
 
     # @staticmethod
     # def caretRangeFromPoint(x, y):
@@ -3655,13 +3656,13 @@ class Document(Element):
         """Returns the topmost element at the specified coordinates."""
         raise NotImplementedError
 
-    element_from_point = elementFromPoint
+    # element_from_point = elementFromPoint
 
     def elementsFromPoint(self, x, y):
         """Returns an array of all elements at the specified coordinates."""
         raise NotImplementedError
 
-    elements_from_point = elementsFromPoint
+    # elements_from_point = elementsFromPoint
 
     @property
     def embeds(self) -> Iterable[Any]:
@@ -3685,13 +3686,13 @@ class Document(Element):
         """Returns the current element that is displayed in fullscreen mode"""
         return None
 
-    fullscreen_element = fullscreenElement
+    # fullscreen_element = fullscreenElement
 
     def fullscreenEnabled(self):
         """Returns a Boolean value indicating whether the document can be viewed in fullscreen mode"""
         return False
 
-    fullscreen_enabled = fullscreenEnabled
+    # fullscreen_enabled = fullscreenEnabled
 
     def getElementById(self, _id):
         """[Returns the element that has the ID attribute with the specified value]
@@ -3719,7 +3720,7 @@ class Document(Element):
 
         return False
 
-    get_element_by_id = getElementById
+    # get_element_by_id = getElementById
 
     def getElementsByName(self, name: str):
         """[Returns a NodeList containing all elements with a specified name]
@@ -3742,7 +3743,7 @@ class Document(Element):
                 pass
         return False
 
-    get_elements_by_name = getElementsByName
+    # get_elements_by_name = getElementsByName
 
     # def hasFocus():
     # '''Returns a Boolean value indicating whether the document has focus'''
@@ -3800,7 +3801,7 @@ class Document(Element):
         else:
             raise Exception("Unsupported node type")
 
-    import_node = importNode
+    # import_node = importNode
 
     # def inputEncoding(self):
     #     """ Returns the encoding used to access the document's resources."""
@@ -3829,7 +3830,7 @@ class Document(Element):
                 each.normalize()
         return
 
-    normalize_document = normalizeDocument
+    # normalize_document = normalizeDocument
 
     # def open(self):
     # '''Opens an HTML output stream to collect output from document.write()'''
@@ -3861,7 +3862,7 @@ class Document(Element):
         else:
             return False
 
-    rename_node = renameNode
+    # rename_node = renameNode
 
     # def requestStorageAccess(self, storage_access_callback):
     #     """ Requests permission to access the user's storage area """
@@ -3885,7 +3886,7 @@ class Document(Element):
         """Returns whether Picture-in-Picture mode is enabled."""
         return False
 
-    picture_in_picture_enabled = pictureInPictureEnabled
+    # picture_in_picture_enabled = pictureInPictureEnabled
 
     @property
     def scripts(self) -> Iterable[Any]:
@@ -3900,7 +3901,7 @@ class Document(Element):
         """Returns a Boolean value indicating whether to stop on the first error"""
         return False
 
-    strict_error_checking = strictErrorChecking
+    # strict_error_checking = strictErrorChecking
 
     @property
     def title(self) -> str:
@@ -3932,7 +3933,7 @@ class Document(Element):
         """Returns the visibility state of the document"""
         return "visible"
 
-    visibility_state = visibilityState
+    # visibility_state = visibilityState
 
     # def write(self, html: str = ""):  # -> None: # TODO - untested
     #     """[writes HTML text to a document
@@ -4250,45 +4251,45 @@ class Text(CharacterData):
         yield self
 
 
-class HTMLCollection(list):
-    def __str__(self) -> str:
-        return "".join([str(a) for a in self])
+# class HTMLCollection(list):
+#     def __str__(self) -> str:
+#         return "".join([str(a) for a in self])
 
-    def item(self, index: int):
-        """[gets the indexth item in the collection.
-        If index is greater than or equal to the number of nodes in the list, this returns null.]
+#     def item(self, index: int):
+#         """[gets the indexth item in the collection.
+#         If index is greater than or equal to the number of nodes in the list, this returns null.]
 
-        Args:
-            index ([type]): [the index of the item to return.]
+#         Args:
+#             index ([type]): [the index of the item to return.]
 
-        Returns:
-            [type]: [the node at the indexth position, or None]
-        """
-        if index < len(self):
-            return self[index]
-        else:
-            return None
+#         Returns:
+#             [type]: [the node at the indexth position, or None]
+#         """
+#         if index < len(self):
+#             return self[index]
+#         else:
+#             return None
 
-    def namedItem(self, name: str):
-        """Returns the specific node whose ID or, as a fallback, name matches the string specified by name."""
-        for item in self:
-            if item.id == name:
-                return item
-            elif item.name == name:
-                return item
-        return None
+#     def namedItem(self, name: str):
+#         """Returns the specific node whose ID or, as a fallback, name matches the string specified by name."""
+#         for item in self:
+#             if item.id == name:
+#                 return item
+#             elif item.name == name:
+#                 return item
+#         return None
 
-    def __getitem__(self, index):
-        # can return dot notation i.e
-        # index = "named.item.with.periods" # TODO - test
-        if isinstance(index, str):
-            names = index.split(".")
-            if len(names) > 1:
-                return self.namedItem(names[0]).namedItem(".".join(names[1:]))
-            else:
-                return self.namedItem(index)
-        else:
-            return super().__getitem__(index)
+#     def __getitem__(self, index):
+#         # can return dot notation i.e
+#         # index = "named.item.with.periods" # TODO - test
+#         if isinstance(index, str):
+#             names = index.split(".")
+#             if len(names) > 1:
+#                 return self.namedItem(names[0]).namedItem(".".join(names[1:]))
+#             else:
+#                 return self.namedItem(index)
+#         else:
+#             return super().__getitem__(index)
 
 
 # TODO - is there a webapi module for this now?
@@ -4342,31 +4343,31 @@ class HTMLCollection(list):
 class DOMException(Exception):
     """The DOMException interface represents an anormal event related to the DOM."""
 
-    INDEX_SIZE_ERR: int = 1
-    DOMSTRING_SIZE_ERR: int = 2
-    HIERARCHY_REQUEST_ERR: int = 3
-    WRONG_DOCUMENT_ERR: int = 4
-    INVALID_CHARACTER_ERR: int = 5
-    NO_DATA_ALLOWED_ERR: int = 6
-    NO_MODIFICATION_ALLOWED_ERR: int = 7
-    NOT_FOUND_ERR: int = 8
-    NOT_SUPPORTED_ERR: int = 9
-    INUSE_ATTRIBUTE_ERR: int = 10
-    INVALID_STATE_ERR: int = 11
-    SYNTAX_ERR: int = 12
-    INVALID_MODIFICATION_ERR: int = 13
-    NAMESPACE_ERR: int = 14
-    INVALID_ACCESS_ERR: int = 15
-    VALIDATION_ERR: int = 16
-    TYPE_MISMATCH_ERR: int = 17
-    SECURITY_ERR: int = 18
-    NETWORK_ERR: int = 19
-    ABORT_ERR: int = 20
-    URL_MISMATCH_ERR: int = 21
-    QUOTA_EXCEEDED_ERR: int = 22
-    TIMEOUT_ERR: int = 23
-    INVALID_NODE_TYPE_ERR: int = 24
-    DATA_CLONE_ERR: int = 25
+    INDEX_SIZE_ERR: ClassVar = 1
+    DOMSTRING_SIZE_ERR: ClassVar = 2
+    HIERARCHY_REQUEST_ERR: ClassVar = 3
+    WRONG_DOCUMENT_ERR: ClassVar = 4
+    INVALID_CHARACTER_ERR: ClassVar = 5
+    NO_DATA_ALLOWED_ERR: ClassVar = 6
+    NO_MODIFICATION_ALLOWED_ERR: ClassVar = 7
+    NOT_FOUND_ERR: ClassVar = 8
+    NOT_SUPPORTED_ERR: ClassVar = 9
+    INUSE_ATTRIBUTE_ERR: ClassVar = 10
+    INVALID_STATE_ERR: ClassVar = 11
+    SYNTAX_ERR: ClassVar = 12
+    INVALID_MODIFICATION_ERR: ClassVar = 13
+    NAMESPACE_ERR: ClassVar = 14
+    INVALID_ACCESS_ERR: ClassVar = 15
+    VALIDATION_ERR: ClassVar = 16
+    TYPE_MISMATCH_ERR: ClassVar = 17
+    SECURITY_ERR: ClassVar = 18
+    NETWORK_ERR: ClassVar = 19
+    ABORT_ERR: ClassVar = 20
+    URL_MISMATCH_ERR: ClassVar = 21
+    QUOTA_EXCEEDED_ERR: ClassVar = 22
+    TIMEOUT_ERR: ClassVar = 23
+    INVALID_NODE_TYPE_ERR: ClassVar = 24
+    DATA_CLONE_ERR: ClassVar = 25
 
     def __init__(self, code, message = None) -> None:
         self.code = code
@@ -4380,18 +4381,18 @@ class DOMException(Exception):
         return self.message
 
 
-class DOMTimeStamp(int):
-    """The DOMTimeStamp interface represents a numeric value which represents the
-    number of milliseconds since the epoch."""
+# class DOMTimeStamp(int):
+#     """The DOMTimeStamp interface represents a numeric value which represents the
+#     number of milliseconds since the epoch."""
 
-    def __init__(self, value):
-        self.value = value
+#     def __init__(self, value):
+#         self.value = value
 
-    def __str__(self):
-        return str(self.value)
+#     def __str__(self):
+#         return str(self.value)
 
-    def __repr__(self):
-        return str(self.value)
+#     def __repr__(self):
+#         return str(self.value)
 
 
 class DOMPoint(vec3):
@@ -4575,23 +4576,23 @@ class DOMQuad:
 # https://bspaans.github.io/python-mingus/_modules/xml/dom/xmlbuilder.html
 class NodeFilter:
 
-    SHOW_ALL = 0xFFFFFFFF
-    SHOW_ELEMENT = 0x00000001
-    SHOW_ATTRIBUTE = 0x00000002
-    SHOW_TEXT = 0x00000004
-    SHOW_CDATA_SECTION = 0x00000008
-    SHOW_ENTITY_REFERENCE = 0x00000010
-    SHOW_ENTITY = 0x00000020
-    SHOW_PROCESSING_INSTRUCTION = 0x00000040
-    SHOW_COMMENT = 0x00000080
-    SHOW_DOCUMENT = 0x00000100
-    SHOW_DOCUMENT_TYPE = 0x00000200
-    SHOW_DOCUMENT_FRAGMENT = 0x00000400
-    SHOW_NOTATION = 0x00000800
+    SHOW_ALL: ClassVar = 0xFFFFFFFF
+    SHOW_ELEMENT: ClassVar = 0x00000001
+    SHOW_ATTRIBUTE: ClassVar = 0x00000002
+    SHOW_TEXT: ClassVar = 0x00000004
+    SHOW_CDATA_SECTION: ClassVar = 0x00000008
+    SHOW_ENTITY_REFERENCE: ClassVar = 0x00000010
+    SHOW_ENTITY: ClassVar = 0x00000020
+    SHOW_PROCESSING_INSTRUCTION: ClassVar = 0x00000040
+    SHOW_COMMENT: ClassVar = 0x00000080
+    SHOW_DOCUMENT: ClassVar = 0x00000100
+    SHOW_DOCUMENT_TYPE: ClassVar = 0x00000200
+    SHOW_DOCUMENT_FRAGMENT: ClassVar = 0x00000400
+    SHOW_NOTATION: ClassVar = 0x00000800
 
-    FILTER_ACCEPT: int = 1
-    FILTER_REJECT: int = 2
-    FILTER_SKIP: int = 3
+    FILTER_ACCEPT: ClassVar = 1
+    FILTER_REJECT: ClassVar = 2
+    FILTER_SKIP: ClassVar = 3
 
     # def acceptNode(node):
     # return NodeFilter.FILTER_ACCEPT

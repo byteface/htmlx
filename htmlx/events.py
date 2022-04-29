@@ -19,7 +19,7 @@ class EventTarget(object):
     def hasEventListener(self, _type: str) -> bool:
         return _type in self.listeners
 
-    has_event_listener = hasEventListener
+    # has_event_listener = hasEventListener
 
     # TODO - event: str, function, useCapture: bool
     # def addEventListener(self, event: str, function, useCapture: bool) -> None:
@@ -28,7 +28,7 @@ class EventTarget(object):
             self.listeners[_type] = []
         self.listeners[_type].append(callback)
 
-    add_event_listener = addEventListener
+    # add_event_listener = addEventListener
 
     def removeEventListener(self, _type: str, callback):
         if _type not in self.listeners:
@@ -41,7 +41,7 @@ class EventTarget(object):
                 stack.remove(thing)
                 return
 
-    remove_event_listener = removeEventListener
+    # remove_event_listener = removeEventListener
 
     def dispatchEvent(self, event):
         if event.type not in self.listeners:
@@ -63,7 +63,7 @@ class EventTarget(object):
 
         return not event.defaultPrevented
 
-    dispatch_event = dispatchEvent
+    # dispatch_event = dispatchEvent
 
     # async def dispatchEventAsync(self, event):
     #     if event.type not in self.listeners:

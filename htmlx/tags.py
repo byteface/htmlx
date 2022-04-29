@@ -620,13 +620,13 @@ fieldset = HTMLFieldSetElement  # type("fieldset", (Element,), {"name": "fieldse
 legend = type("legend", (Element,), {"name": "legend"})
 button = HTMLButtonElement  # type("button", (Element,), {"name": "button"})
 select = type("select", (Element,), {"name": "select"})
-datalist = HTMLDataListElement
-optgroup = HTMLOptGroupElement
-option = HTMLOptionElement
-textarea = HTMLTextAreaElement
-output = HTMLOutputElement
-progress = HTMLProgressElement
-meter = HTMLMeterElement
+datalist = type("datalist", (HTMLDataListElement,), {"name": "datalist"})
+optgroup = type("optgroup", (HTMLOptGroupElement,), {"name": "optgroup"})
+option = type("option", (HTMLOptionElement,), {"name": "option"})
+textarea = type("textarea", (HTMLTextAreaElement,), {"name": "textarea"})
+output = type("output", (HTMLOutputElement,), {"name": "output"})
+progress = type("progress", (HTMLProgressElement,), {"name": "progress"})
+meter = type("meter", (HTMLMeterElement,), {"name": "meter"})
 details = type("details", (Element,), {"name": "details"})
 summary = type("summary", (Element,), {"name": "summary"})
 menu = type("menu", (Element,), {"name": "menu"})
@@ -639,7 +639,7 @@ footer = type("footer", (Element,), {"name": "footer"})
 # del_ = type('del_', (tag,), {'name': 'del_'})
 # time_ = type('time_', (tag,), {'name': 'time_'})
 
-base = HTMLBaseElement
+base = type("base", (HTMLBaseElement,), {"name": "base"})
 link = type(
     "link", (closed_tag, Element), {"name": "link"}
 )  # HTMLLinkElement TODO - closed tags
@@ -669,7 +669,7 @@ applet = type("applet", (Element,), {"name": "applet"})
 basefont = type("basefont", (Element,), {"name": "basefont"})
 center = type("center", (Element,), {"name": "center"})
 # dir = type('dir', (Element,), {'name': 'dir'})
-embed = HTMLEmbedElement
+embed = type("embed", (HTMLEmbedElement,), {"name": "embed"})
 isindex = type("isindex", (Element,), {"name": "isindex"})
 listing = type("listing", (Element,), {"name": "listing"})
 plaintext = type("plaintext", (Element,), {"name": "plaintext"})
@@ -680,13 +680,13 @@ xmp = type("xmp", (Element,), {"name": "xmp"})
 
 template = type("template", (Element,), {"name": "template"})
 
-picture = HTMLPictureElement
-dialog = HTMLDialogElement
+picture = type("picture", (HTMLPictureElement,), {"name": "picture"})
+dialog = type("dialog", (HTMLDialogElement,), {"name": "dialog"})
 
 
 # legacy.
-doctype = DocumentType
-comment = Comment
+doctype = type("doctype", (DocumentType,), {"name": "doctype"})
+comment = type("comment", (Comment,), {"name": "comment"})
 
 
 def create_element(name="custom_tag", *args, **kwargs):
