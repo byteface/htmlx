@@ -8,6 +8,12 @@ test:
 	# python3 -m unittest tests.test_geom
 	python3 -m unittest tests.test_sitemap
 
+compile:
+	mypyv htmlx
+
+clean:
+	find htmlx -name "*.so" -exec rm {} \;
+
 build:
 	rm -rf dist/
 	python3 setup.py sdist bdist_wheel

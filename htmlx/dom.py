@@ -2223,7 +2223,7 @@ class Element(Node):
         self.shadowRoot = ShadowRoot(self, obj["mode"])
         return self.shadowRoot
 
-    attach_shadow = attachShadow
+    # attach_shadow = attachShadow
 
     # def accessKey( key: str ): -> None
     # ''' Sets or returns the accesskey attribute of an element'''
@@ -2252,7 +2252,7 @@ class Element(Node):
             self.args = (value,)
         return self.content
 
-    inner_html = innerHTML
+    # inner_html = innerHTML
 
     @property
     def outerHTML(self) -> Any:
@@ -2269,7 +2269,7 @@ class Element(Node):
             pass
         return self
 
-    outer_html = outerHTML
+    # outer_html = outerHTML
 
     def html(self, *args):
         self.args = args
@@ -2294,7 +2294,7 @@ class Element(Node):
         self.setAttribute("class", newname)
         # raise NotImplementedError
 
-    class_list = classList
+    # class_list = classList
 
     @property
     def className(self) -> str:
@@ -2306,7 +2306,7 @@ class Element(Node):
         """Sets or returns the value of the className attribute of an element"""
         self.setAttribute("class", newname)
 
-    class_name = className
+    # class_name = className
 
     def click(self):
         """Simulates a mouse-click on an element"""
@@ -2320,28 +2320,28 @@ class Element(Node):
         """Returns the height of an element, including padding"""
         return self.style.height + self.style.paddingTop + self.style.paddingBottom
 
-    client_height = clientHeight
+    # client_height = clientHeight
 
     @property
     def clientLeft(self) -> int:
         """Returns the width of the left border of an element"""
         return self.style.left
 
-    client_left = clientLeft
+    # client_left = clientLeft
 
     @property
     def clientTop(self) -> int:
         """Returns the width of the top border of an element"""
         return self.style.top
 
-    client_top = clientTop
+    # client_top = clientTop
 
     @property
     def clientWidth(self) -> int:
         """Returns the width of an element, including padding"""
         return self.style.width + self.style.paddingLeft + self.style.paddingRight
 
-    client_width = clientWidth
+    # client_width = clientWidth
 
     @property
     def contentEditable(self) -> bool:
@@ -2353,7 +2353,7 @@ class Element(Node):
     def contentEditable(self, value: bool) -> None:
         self.setAttribute("contenteditable", value)
 
-    content_editable = contentEditable
+    # content_editable = contentEditable
 
     # @property
     # def dataset(self) -> "DOMStringMap":
@@ -2385,7 +2385,7 @@ class Element(Node):
         """Cancels an element in fullscreen mode"""
         raise NotImplementedError
 
-    exit_fullscreen = exitFullscreen
+    # exit_fullscreen = exitFullscreen
 
     def firstElementChild(self) -> Any:
         """Returns the first child element of an element"""
@@ -2394,7 +2394,7 @@ class Element(Node):
         except Exception:
             return None
 
-    first_element_child = firstElementChild
+    # first_element_child = firstElementChild
 
     def focus(self) -> None:
         """Sets focus on an element"""
@@ -2406,7 +2406,7 @@ class Element(Node):
         self.setAttributeNode(a)
         return self
 
-    set_attribute_node_ns = setAttributeNodeNS
+    # set_attribute_node_ns = setAttributeNodeNS
 
     def getAttributeNodeNS(self, attr):  # TODO - test
         """Sets the attribute node of an element"""
@@ -2415,19 +2415,19 @@ class Element(Node):
             return None
         return Attr(attr, a)
 
-    get_attribute_node_ns = getAttributeNodeNS
+    # get_attribute_node_ns = getAttributeNodeNS
 
     def setAttributeNS(self, namespaceURI, localName, value):
         """Sets an attribute in the given namespace"""
         self.setAttribute(localName, value)
 
-    set_attribute_ns = setAttributeNS
+    # set_attribute_ns = setAttributeNS
 
     def getAttributeNS(self, namespaceURI, localName):
         """Returns the value of the specified attribute"""
         return self.getAttribute(localName)
 
-    get_attribute_ns = getAttributeNS
+    # get_attribute_ns = getAttributeNS
 
     def removeAttributeNS(self, namespaceURI, localName):
         """Removes an attribute from an element"""
@@ -2437,7 +2437,7 @@ class Element(Node):
         #     raise AttributeError
         return self
 
-    remove_attribute_ns = removeAttributeNS
+    # remove_attribute_ns = removeAttributeNS
 
     def getAttribute(self, attribute: str):
         """Returns the specified attribute value of an element node"""
@@ -2450,7 +2450,7 @@ class Element(Node):
             # print(e)
             return None
 
-    get_attribute = getAttribute
+    # get_attribute = getAttribute
 
     def getAttributeNode(self, attribute: str) -> str:
         """Returns the specified attribute node"""
@@ -2461,13 +2461,13 @@ class Element(Node):
             # print(e)
             return ""
 
-    get_attribute_node = getAttributeNode
+    # get_attribute_node = getAttributeNode
 
     def getBoundingClientRect(self):
         """Returns the size of an element and its position relative to the viewport"""
         raise NotImplementedError
 
-    get_bounding_client_rect = getBoundingClientRect
+    # get_bounding_client_rect = getBoundingClientRect
 
     def getElementsByClassName(self, className: str) -> Any:  # "HTMLCollection":
         """[Returns a collection of all child elements with the specified class name]
@@ -2482,7 +2482,7 @@ class Element(Node):
         return self.querySelectorAll('.' + className)
         # return HTMLCollection(self.querySelectorAll("." + className))
 
-    get_elements_by_class_name = getElementsByClassName
+    # get_elements_by_class_name = getElementsByClassName
 
     def getElementsByTagName(self, tagName: str) -> Any:  # "HTMLCollection":
         """[Returns a collection of all child elements with the specified tag name
@@ -2502,7 +2502,7 @@ class Element(Node):
         self._iterate(self, anon)
         return elements
 
-    get_elements_by_tag_name = getElementsByTagName
+    # get_elements_by_tag_name = getElementsByTagName
 
     def hasAttribute(self, attribute: str) -> bool:
         """Returns true if an element has the specified attribute, otherwise false"""
@@ -2515,7 +2515,7 @@ class Element(Node):
             # print(e)
             return False
 
-    has_attribute = hasAttribute
+    # has_attribute = hasAttribute
 
     def hasAttributes(self) -> bool:
         """Returns true if an element has any attributes, otherwise false"""
@@ -2524,7 +2524,7 @@ class Element(Node):
         else:
             return False
 
-    has_attributes = hasAttributes
+    # has_attributes = hasAttributes
 
     @property
     def id(self) -> str:
@@ -2541,7 +2541,7 @@ class Element(Node):
         self.args = args
         return "".join([each.__str__() for each in self.args])
 
-    inner_text = innerText
+    # inner_text = innerText
 
     # Inserts an element adjacent to the current element
     def insertAdjacentElement(
@@ -2558,7 +2558,7 @@ class Element(Node):
         elif position == "BEFOREEND":
             self.insertBefore(element, self.lastElementChild())
 
-    insert_adjacent_element = insertAdjacentElement
+    # insert_adjacent_element = insertAdjacentElement
 
     def insertAdjacentHTML(self, position: str, html: str):
         """Inserts raw HTML adjacent to the current element"""
@@ -2572,7 +2572,7 @@ class Element(Node):
         #     self.insertAdjacentElement('afterend', html)
         pass
 
-    insert_adjacent_html = insertAdjacentHTML
+    # insert_adjacent_html = insertAdjacentHTML
 
     def insertAdjacentText(self, position: str, text: str):
         """Inserts text adjacent to the current element"""
@@ -2586,7 +2586,7 @@ class Element(Node):
         #     self.insertAdjacentElement('afterend', text)
         pass
 
-    insert_adjacent_text = insertAdjacentText
+    # insert_adjacent_text = insertAdjacentText
 
     def isContentEditable(self) -> bool:
         """Returns true if the content of an element is editable, otherwise false"""
@@ -2594,7 +2594,7 @@ class Element(Node):
             return True
         return False
 
-    is_content_editable = isContentEditable
+    # is_content_editable = isContentEditable
 
     # def lang(self) -> str:
     #     """ Sets or returns the value of the lang attribute of an element """ # TODO - prop?
@@ -2611,7 +2611,7 @@ class Element(Node):
         except Exception:
             return None
 
-    last_element_child = lastElementChild
+    # last_element_child = lastElementChild
 
     def namespaceURI(self):
         """Returns the namespace URI of an element"""
@@ -2626,7 +2626,7 @@ class Element(Node):
                     return self.parentNode.args[count + 1]
         return None
 
-    next_sibling = nextSibling
+    # next_sibling = nextSibling
 
     @property
     def nextElementSibling(self) -> Any:
@@ -2638,7 +2638,7 @@ class Element(Node):
                         return self.parentNode.args[count + 1]
         return None
 
-    next_element_sibling = nextElementSibling
+    # next_element_sibling = nextElementSibling
 
     @property
     def previousElementSibling(self) -> Any:
@@ -2651,7 +2651,7 @@ class Element(Node):
                         return self.parentNode.args[count - 1]
         return None
 
-    previous_element_sibling = previousElementSibling
+    # previous_element_sibling = previousElementSibling
 
     def normalize(self):
         """Joins adjacent text nodes and removes empty text nodes in an element"""
@@ -2679,38 +2679,38 @@ class Element(Node):
         """Returns the height of an element, including padding, border and scrollbar"""
         raise NotImplementedError
 
-    offset_height = offsetHeight
+    # offset_height = offsetHeight
 
     def offsetWidth(self):
         """Returns the width of an element, including padding, border and scrollbar"""
         raise NotImplementedError
 
-    offset_width = offsetWidth
+    # offset_width = offsetWidth
 
     def offsetLeft(self):
         """Returns the horizontal offset position of an element"""
         raise NotImplementedError
 
-    offset_left = offsetLeft
+    # offset_left = offsetLeft
 
     def offsetParent(self):
         """Returns the offset container of an element"""
         raise NotImplementedError
 
-    offset_parent = offsetParent
+    # offset_parent = offsetParent
 
     def offsetTop(self):
         """Returns the vertical offset position of an element"""
         raise NotImplementedError
 
-    offset_top = offsetTop
+    # offset_top = offsetTop
 
     @property
     def parentElement(self) -> Any:
         """Returns the parent element node of an element"""
         return self.parentNode
 
-    parent_element = parentElement
+    # parent_element = parentElement
 
     def prepend(self, *args):
         """Prepends a node to the current element"""
@@ -2731,7 +2731,7 @@ class Element(Node):
         except Exception as e:
             return None
 
-    query_selector = querySelector
+    # query_selector = querySelector
 
     def querySelectorAll(self, query: str):
         """[Returns all child elements that matches a specified CSS selector(s) of an element]
@@ -2754,7 +2754,7 @@ class Element(Node):
         self._iterate(self, anon)
         return elements
 
-    query_selector_all = querySelectorAll
+    # query_selector_all = querySelectorAll
 
     def remove(self):
         """Removes the element from the DOM"""
@@ -2779,7 +2779,7 @@ class Element(Node):
             print("failed to remove!", e)
             pass
 
-    remove_attribute = removeAttribute
+    # remove_attribute = removeAttribute
 
     def removeAttributeNode(self, attribute):  # untested
         """Removes a specified attribute node, and returns the removed node"""
@@ -2789,13 +2789,13 @@ class Element(Node):
                 del self.kwargs[each]
                 return Attr(attribute, val)
 
-    remove_attribute_node = removeAttributeNode
+    # remove_attribute_node = removeAttributeNode
 
     def requestFullscreen(self):
         """Shows an element in fullscreen mode"""
         raise NotImplementedError
 
-    request_fullscreen = requestFullscreen
+    # request_fullscreen = requestFullscreen
 
     # def setPointerCapture(self):
     #     ''' Sets the pointer capture to the specified element '''
@@ -2809,31 +2809,31 @@ class Element(Node):
         """Returns the entire height of an element, including padding"""
         raise NotImplementedError
 
-    scroll_height = scrollHeight
+    # scroll_height = scrollHeight
 
     def scrollIntoView(self):
         """Scrolls the specified element into the visible area of the browser window"""
         raise NotImplementedError
 
-    scroll_into_view = scrollIntoView
+    # scroll_into_view = scrollIntoView
 
     def scrollLeft(self):
         """Sets or returns the number of pixels an element's content is scrolled horizontally"""
         raise NotImplementedError
 
-    scroll_left = scrollLeft
+    # scroll_left = scrollLeft
 
     def scrollTop(self):
         """Sets or returns the number of pixels an element's content is scrolled vertically"""
         raise NotImplementedError
 
-    scroll_top = scrollTop
+    # scroll_top = scrollTop
 
     def scrollWidth(self):
         """Returns the entire width of an element, including padding"""
         raise NotImplementedError
 
-    scroll_width = scrollWidth
+    # scroll_width = scrollWidth
 
     def setAttribute(self, attribute, value):
         """Sets or changes the specified attribute, to the specified value"""
@@ -2845,7 +2845,7 @@ class Element(Node):
             # print('failed to set attribute', e)
             return None
 
-    set_attribute = setAttribute
+    # set_attribute = setAttribute
 
     def setAttributeNode(self, attr):
         """[Sets or changes the specified attribute node]
@@ -2855,7 +2855,7 @@ class Element(Node):
         """
         self.setAttribute(attr.name, attr.value)
 
-    set_attribute_node = setAttributeNode
+    # set_attribute_node = setAttributeNode
 
     # @property
     # def style(self) -> Any:
@@ -2877,7 +2877,7 @@ class Element(Node):
     def tagName(self) -> str:
         return self.name
 
-    tag_name = tagName
+    # tag_name = tagName
 
     # @property
     # def title(self) -> str:
@@ -5490,7 +5490,10 @@ class Sanitizer:
 
 
 class HTMLElement(Element):  # TODO - check
-    name = ""
+    # name = ""
+    def __init(self, *args, **kwargs):
+        # self.name = ""
+        super().__init__(*args, **kwargs)
 
 
 class HTMLAnchorElement(HTMLElement):  # TODO - check
@@ -5551,7 +5554,10 @@ class HTMLDialogElement(HTMLElement):
 
 class HTMLDivElement(HTMLElement):
     name = "div"
-
+    def __init(self, *args, **kwargs):
+        self.name = "div"
+        super().__init__(*args, **kwargs)
+        self.name = "div"
 
 class HTMLDocument(Document):
     name = "html"
